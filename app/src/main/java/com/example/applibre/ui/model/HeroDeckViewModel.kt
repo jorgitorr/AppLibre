@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.applibre.data.SuperHero
 import com.example.applibre.network.SuperHeroApi
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -24,9 +25,10 @@ class HeroDeckViewModel:ViewModel(){
         //iniciamos una corrutina
         viewModelScope.launch {
             try {
-                val superHeroId = SuperHeroApi.retrofitService.getSuperHeroByName("batman")
-                val superHeroInfo = SuperHeroApi.retrofitService.getSuperHeroById(superHeroId)
-                superHero = superHeroId
+                val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById("70").trimIndent()
+                val gson = Gson()
+                val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
+                superHero = superheroResponse.toString()
 
             }catch (e:IOException){
 
