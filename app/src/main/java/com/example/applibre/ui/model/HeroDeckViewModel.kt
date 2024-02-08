@@ -26,7 +26,7 @@ class HeroDeckViewModel:ViewModel(){
             try {
                 val superHeroId = SuperHeroApi.retrofitService.getSuperHeroByName("batman")
                 val superHeroInfo = SuperHeroApi.retrofitService.getSuperHeroById(superHeroId)
-                superHero = superHeroInfo
+                superHero = superHeroId
 
             }catch (e:IOException){
 

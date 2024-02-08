@@ -9,7 +9,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 const val BASE_URL =
-    "https://www.superheroapi.com/api.php/"
+    "https://www.superheroapi.com/api.php/934555588123234/"
+
 
 val retrofit: Retrofit = Retrofit.Builder()
     .addConverterFactory(ScalarsConverterFactory.create())
@@ -22,13 +23,13 @@ interface SuperHeroApiService{
     /**
      * Obtiene todo del personaje
      */
-    @GET("/{id}")
+    @GET("{id}")
     suspend fun getSuperHeroById(@Path("id") id: String): String
 
 
     /**
      * @return devuelve el id del personaje
      */
-    @GET("/search/{name}")
+    @GET("search/{name}")
     suspend fun getSuperHeroByName(@Path("name") name: String): String
 }
