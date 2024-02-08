@@ -6,6 +6,6 @@ data class SuperHero (
     val biography:Biography,
     val appearance:Appearance,
     val work:Work,
-    val image:String,
+    val image:Image,
     val name:String
 )
