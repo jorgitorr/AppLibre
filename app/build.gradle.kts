@@ -55,6 +55,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     // Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
+    // Kotlin serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     //gson
     implementation("com.squareup.retrofit2:converter-gson:2.6.4")
     implementation("androidx.core:core-ktx:1.12.0")

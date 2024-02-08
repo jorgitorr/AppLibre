@@ -26,10 +26,14 @@ import kotlin.random.Random
  * lógica del programa
  */
 class HeroDeckViewModel:ViewModel(){
+    private val _player = MutableLiveData<Player>()
 
-    private lateinit var _player1: Player
-    private lateinit var _player2: Player
-    private var _turno = true
+    private val _nickNamePlayer = MutableLiveData<String>()
+    val nickNamePlayer1: LiveData<String> = _nickNamePlayer
+
+    private val _superHeroDeck  = MutableLiveData<MutableList<SuperHero>>()
+    val superHeroDeck:LiveData<MutableList<SuperHero>> = _superHeroDeck
+
     var superHero by mutableStateOf(SuperHero(
         id = 0,
         name = "",
@@ -44,28 +48,12 @@ class HeroDeckViewModel:ViewModel(){
 
     init {
         getSuperHeroe()
-        //newDeckHeroes()
     }
 
-    fun onPlayer(){
-
+    fun onPlayer(nickName:String){
+        _nickNamePlayer.value = nickName
     }
 
-
-    /**
-     * incializa el mazo del jugador
-     * 5 cartas para cada jugador
-     */
-    private fun newDeckHeroes(){
-        for (i in 1..10){
-            if(_turno){
-                _player1.superHeroes.add(getSuperHeroe2())
-            }else{
-                _player2.superHeroes.add(getSuperHeroe2())
-            }
-            _turno = !_turno
-        }
-    }
 
     private fun getSuperHeroe(){
         //iniciamos una corrutina
@@ -82,26 +70,6 @@ class HeroDeckViewModel:ViewModel(){
             }
         }
     }
-
-
-    fun getSuperHeroe2():SuperHero{
-        //iniciamos una corrutina
-        viewModelScope.launch {
-            try {
-                val numAleatorio = Random.nextInt(1, 732).toString()
-                val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio).trimIndent()
-                val gson = Gson()
-                val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
-                superHero = superheroResponse
-
-            }catch (e:IOException){
-
-            }
-        }
-
-        return superHero
-    }
-
     /**
      * calcula el poder de los personajes
      */

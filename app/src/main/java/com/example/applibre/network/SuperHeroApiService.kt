@@ -33,3 +33,4 @@ interface SuperHeroApiService{
     @GET("search/{name}")
     suspend fun getSuperHeroByName(@Path("name") name: String): String
 }
+

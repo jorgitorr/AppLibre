@@ -11,18 +11,6 @@ class Deck {
         private val listaSuperHeroes: ArrayList<SuperHero> = ArrayList()
 
         /**
-         * Creates a new deck of cards and populates the list.
-         *
-         * @param context The application context for retrieving resources.
-         */
-        fun newDeckOfHeroes(HeroDeckViewModel:HeroDeckViewModel) {
-            listaSuperHeroes.clear()
-            for (i in 1..5){
-                listaSuperHeroes.add(HeroDeckViewModel.getSuperHeroe2())
-            }
-        }
-
-        /**
          * Genera un número aleatorio en el rango de 1 a 731
          * que son todos los posibles id
          */

@@ -22,6 +22,7 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -93,9 +94,11 @@ fun SuperHeroCard(superHero:SuperHero){
             .data(urlImagen)
             .build(),
         contentDescription = "SuperHero",
+        contentScale = ContentScale.Crop,
         modifier = Modifier.fillMaxWidth()
     )
     
+    Text(text = superHero.name)
     Text(text = superHero.powerStats.toString())
     
 }
