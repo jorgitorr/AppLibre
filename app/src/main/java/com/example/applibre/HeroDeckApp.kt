@@ -22,10 +22,14 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.example.applibre.data.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -71,11 +75,27 @@ fun screen(){
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             LazyColumn{
-                item {  Text(text = heroDeckViewModel.superHero.toString()) }
+                item { SuperHeroCard(superHero = heroDeckViewModel.superHero) }
             }
 
         }
     }
+}
+
+/**
+ * imprime la carta
+ */
+@Composable
+fun SuperHeroCard(superHero:SuperHero){
+    val urlImagen = superHero.image.url
+    AsyncImage(
+        model = ImageRequest.Builder(context = LocalContext.current)
+            .data(urlImagen)
+            .build(),
+        contentDescription = "SuperHero",
+        modifier = Modifier.fillMaxWidth()
+    )
+    
 }
 
 

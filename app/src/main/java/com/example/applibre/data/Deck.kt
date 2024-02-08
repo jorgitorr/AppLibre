@@ -17,8 +17,9 @@ class Deck {
          */
         fun newDeckOfCards(HeroDeckViewModel:HeroDeckViewModel) {
             listaSuperHeroes.clear()
-            listaSuperHeroes.add(HeroDeckViewModel.superHero)
-
+            for (i in 1..5){
+                listaSuperHeroes.add(HeroDeckViewModel.superHero)
+            }
         }
 
         /**

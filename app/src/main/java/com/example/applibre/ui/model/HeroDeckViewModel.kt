@@ -35,10 +35,10 @@ class HeroDeckViewModel:ViewModel(){
     private set;
 
     init {
-        getSuperHeroes()
+        getSuperHeroe()
     }
 
-    private fun getSuperHeroes(){
+    private fun getSuperHeroe(){
         //iniciamos una corrutina
         viewModelScope.launch {
             try {
@@ -54,8 +54,26 @@ class HeroDeckViewModel:ViewModel(){
         }
     }
 
+    /**
+     * calcula el poder de los personajes
+     */
     private fun checkPuntos(){
+        val powerStats = superHero.powerStats
+        val totalPowers = powerStats.power + powerStats.combat + powerStats.durability + powerStats.speed
+        + powerStats.strength + powerStats.intelligence
 
+        val powerPercentage = powerStats.power.toDouble() / totalPowers * 10
+        val combatPercentage = powerStats.combat.toDouble() / totalPowers * 15
+        val durabilityPercentage = powerStats.durability.toDouble() / totalPowers * 15
+        val speedPercentage = powerStats.speed.toDouble() / totalPowers * 15
+        val strengthPercentage = powerStats.strength.toDouble() / totalPowers * 20
+        val intelligencePercentage = powerStats.intelligence.toDouble() / totalPowers * 25
+
+        /*
+        * cada turno da mana
+        * y empiezas con uno de mana
+        * cada carta tiene su propio coste de mana
+        * */
     }
 }
 
