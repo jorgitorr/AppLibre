@@ -17,18 +17,16 @@ class HeroDeckViewModel:ViewModel(){
 
 
     init {
-        getSuperHero()
+        getSuperHeroes()
     }
 
-    private fun getSuperHero(){
+    private fun getSuperHeroes(){
         //iniciamos una corrutina
         viewModelScope.launch {
             try {
-                /*val listResult = SuperHeroApi.retrofitService.getSuperHero()
-                superHero = listResult*/
-
-                val listResult = SuperHeroApi.retrofitService.getSuperHero("Batman")
-                superHero = listResult.toString()
+                val superHeroId = SuperHeroApi.retrofitService.getSuperHeroByName("batman")
+                val superHeroInfo = SuperHeroApi.retrofitService.getSuperHeroById(superHeroId)
+                superHero = superHeroInfo
 
             }catch (e:IOException){
 
