@@ -73,6 +73,7 @@ fun screen(){
             LazyColumn{
                 item {  Text(text = heroDeckViewModel.superHero) }
             }
+
         }
     }
 }
