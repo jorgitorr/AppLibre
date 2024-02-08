@@ -16,6 +16,7 @@ import com.example.applibre.network.SuperHeroApi
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import java.io.IOException
+import kotlin.random.Random
 
 /**
  * lógica del programa
@@ -33,8 +34,6 @@ class HeroDeckViewModel:ViewModel(){
     ))
     private set;
 
-
-
     init {
         getSuperHeroes()
     }
@@ -43,7 +42,8 @@ class HeroDeckViewModel:ViewModel(){
         //iniciamos una corrutina
         viewModelScope.launch {
             try {
-                val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById("70").trimIndent()
+                val numAleatorio = Random.nextInt(1, 732).toString()
+                val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio).trimIndent()
                 val gson = Gson()
                 val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
                 superHero = superheroResponse
