@@ -15,10 +15,10 @@ class Deck {
          *
          * @param context The application context for retrieving resources.
          */
-        fun newDeckOfCards(HeroDeckViewModel:HeroDeckViewModel) {
+        fun newDeckOfHeroes(HeroDeckViewModel:HeroDeckViewModel) {
             listaSuperHeroes.clear()
             for (i in 1..5){
-                listaSuperHeroes.add(HeroDeckViewModel.superHero)
+                listaSuperHeroes.add(HeroDeckViewModel.getSuperHeroe2())
             }
         }
 

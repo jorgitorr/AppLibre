@@ -3,12 +3,16 @@ package com.example.applibre.ui.model
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.applibre.data.Appearance
 import com.example.applibre.data.Biography
 import com.example.applibre.data.Connections
+import com.example.applibre.data.Deck
 import com.example.applibre.data.Image
+import com.example.applibre.data.Player
 import com.example.applibre.data.PowerStats
 import com.example.applibre.data.SuperHero
 import com.example.applibre.data.Work
@@ -22,6 +26,10 @@ import kotlin.random.Random
  * lógica del programa
  */
 class HeroDeckViewModel:ViewModel(){
+
+    private lateinit var _player1: Player
+    private lateinit var _player2: Player
+    private var _turno = true
     var superHero by mutableStateOf(SuperHero(
         id = 0,
         name = "",
@@ -36,6 +44,27 @@ class HeroDeckViewModel:ViewModel(){
 
     init {
         getSuperHeroe()
+        //newDeckHeroes()
+    }
+
+    fun onPlayer(){
+
+    }
+
+
+    /**
+     * incializa el mazo del jugador
+     * 5 cartas para cada jugador
+     */
+    private fun newDeckHeroes(){
+        for (i in 1..10){
+            if(_turno){
+                _player1.superHeroes.add(getSuperHeroe2())
+            }else{
+                _player2.superHeroes.add(getSuperHeroe2())
+            }
+            _turno = !_turno
+        }
     }
 
     private fun getSuperHeroe(){
@@ -52,6 +81,25 @@ class HeroDeckViewModel:ViewModel(){
 
             }
         }
+    }
+
+
+    fun getSuperHeroe2():SuperHero{
+        //iniciamos una corrutina
+        viewModelScope.launch {
+            try {
+                val numAleatorio = Random.nextInt(1, 732).toString()
+                val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio).trimIndent()
+                val gson = Gson()
+                val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
+                superHero = superheroResponse
+
+            }catch (e:IOException){
+
+            }
+        }
+
+        return superHero
     }
 
     /**
@@ -74,6 +122,9 @@ class HeroDeckViewModel:ViewModel(){
         * y empiezas con uno de mana
         * cada carta tiene su propio coste de mana
         * */
+
+
     }
+
 }
 

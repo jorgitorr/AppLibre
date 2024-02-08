@@ -96,6 +96,8 @@ fun SuperHeroCard(superHero:SuperHero){
         modifier = Modifier.fillMaxWidth()
     )
     
+    Text(text = superHero.powerStats.toString())
+    
 }
 
 
