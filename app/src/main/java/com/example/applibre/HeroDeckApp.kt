@@ -71,7 +71,7 @@ fun screen(){
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             LazyColumn{
-                item {  Text(text = heroDeckViewModel.superHero) }
+                item {  Text(text = heroDeckViewModel.superHero.toString()) }
             }
 
         }
