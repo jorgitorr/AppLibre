@@ -7,7 +7,6 @@ data class SuperHero (
     val name:String,
     @SerializedName("powerstats")
     val powerStats:PowerStats,
-    @SerializedName("biography")
     val biography:Biography,
     val appearance:Appearance,
     val work:Work,
