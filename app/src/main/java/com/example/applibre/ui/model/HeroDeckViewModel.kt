@@ -55,7 +55,7 @@ class HeroDeckViewModel:ViewModel(){
     }
 
 
-    private fun getSuperHeroe(){
+    fun getSuperHeroe(){
         //iniciamos una corrutina
         viewModelScope.launch {
             try {
