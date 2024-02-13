@@ -18,6 +18,8 @@ import com.example.applibre.data.SuperHero
 import com.example.applibre.data.Work
 import com.example.applibre.network.SuperHeroApi
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.IOException
 import kotlin.random.Random
@@ -31,8 +33,8 @@ class HeroDeckViewModel:ViewModel(){
     private val _nickNamePlayer = MutableLiveData<String>()
     val nickNamePlayer1: LiveData<String> = _nickNamePlayer
 
-    private val _superHeroDeck  = MutableLiveData<MutableList<SuperHero>>()
-    val superHeroDeck:LiveData<MutableList<SuperHero>> = _superHeroDeck
+    private val _superHeroDeck  = MutableStateFlow<List<SuperHero>>(emptyList())
+    val superHeroDeck: StateFlow<List<SuperHero>> = _superHeroDeck
 
     var superHero by mutableStateOf(SuperHero(
         id = 0,
@@ -46,6 +48,7 @@ class HeroDeckViewModel:ViewModel(){
     ))
     private set;
 
+
     init {
         getSuperHeroe()
     }
@@ -57,17 +60,19 @@ class HeroDeckViewModel:ViewModel(){
 
     fun getSuperHeroe(){
         //iniciamos una corrutina
+        var lista:MutableList<SuperHero> ?= null
         viewModelScope.launch {
-            try {
-                val numAleatorio = Random.nextInt(1, 732).toString()
-                val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio).trimIndent()
-                val gson = Gson()
-                val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
-                superHero = superheroResponse
+                try {
+                    val numAleatorio = Random.nextInt(1, 732).toString()
+                    val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio).trimIndent()
+                    val gson = Gson()
+                    val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
+                    superHero = superheroResponse
+                    //lista!!.add(superHero)
+                    //_superHeroDeck.value = lista
+                }catch (e:IOException){
 
-            }catch (e:IOException){
-
-            }
+                }
         }
     }
     /**

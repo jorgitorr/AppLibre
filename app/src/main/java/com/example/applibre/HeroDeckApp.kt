@@ -21,6 +21,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
@@ -91,6 +95,8 @@ fun screen(){
  */
 @Composable
 fun SuperHeroCard(superHero:SuperHero){
+    var showText by remember { mutableStateOf(false) }
+
     val urlImagen = superHero.image.url
     AsyncImage(
         model = ImageRequest.Builder(context = LocalContext.current)
@@ -100,10 +106,20 @@ fun SuperHeroCard(superHero:SuperHero){
         contentScale = ContentScale.Crop,
         modifier = Modifier.fillMaxWidth()
     )
-    
+
+    Button(onClick = { showText = !showText }, modifier = Modifier.padding(start = 150.dp)) {
+        Text(if (showText) "Ocultar" else "Ver más")
+    }
+
+    if (showText) {
+        mostrar(superHero)
+    }
+}
+
+@Composable
+fun mostrar(superHero: SuperHero){
     Text(text = superHero.name)
     Text(text = superHero.powerStats.toString())
-    
 }
 
 
