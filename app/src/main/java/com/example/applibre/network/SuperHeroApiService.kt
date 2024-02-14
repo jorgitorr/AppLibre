@@ -1,12 +1,9 @@
 package com.example.applibre.network
 
-import com.example.applibre.data.SuperHero
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 const val BASE_URL =
     "https://www.superheroapi.com/api.php/934555588123234/"

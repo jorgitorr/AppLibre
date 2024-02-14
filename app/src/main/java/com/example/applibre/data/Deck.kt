@@ -1,14 +1,12 @@
 package com.example.applibre.data
 
-import android.content.Context
-import com.example.applibre.ui.model.HeroDeckViewModel
 import kotlin.random.Random
 
 class Deck {
 
     companion object {
         // The list to store the deck of cards
-        private val listaSuperHeroes: ArrayList<SuperHero> = ArrayList()
+        private val listaCharacters: ArrayList<Character> = ArrayList()
 
         /**
          * Genera un número aleatorio en el rango de 1 a 731
@@ -19,7 +17,7 @@ class Deck {
         }
 
         fun shuffle() {
-            listaSuperHeroes.shuffle()
+            listaCharacters.shuffle()
         }
 
         /**
@@ -27,9 +25,9 @@ class Deck {
          *
          * @return The last card in the deck.
          */
-        fun getSuperHero(): SuperHero {
-            val carta = listaSuperHeroes.last()
-            listaSuperHeroes.removeLast()
+        fun getSuperHero(): Character {
+            val carta = listaCharacters.last()
+            listaCharacters.removeLast()
             return carta
         }
 
@@ -42,7 +40,7 @@ class Deck {
          * @return The total number of cards in the deck.
          */
         fun getCardsTotal(): Int {
-            return listaSuperHeroes.size
+            return listaCharacters.size
         }
 
     }

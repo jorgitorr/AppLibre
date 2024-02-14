@@ -2,23 +2,16 @@ package com.example.applibre
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,16 +19,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.applibre.data.SuperHero
+import com.example.applibre.data.Character
 import com.example.applibre.ui.model.HeroDeckViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,7 +74,7 @@ fun screen(){
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             LazyColumn{
-                item { SuperHeroCard(superHero = heroDeckViewModel.superHero) }
+                item { SuperHeroCard(character = heroDeckViewModel.character) }
             }
 
         }
@@ -94,10 +85,10 @@ fun screen(){
  * imprime la carta
  */
 @Composable
-fun SuperHeroCard(superHero:SuperHero){
+fun SuperHeroCard(character: Character){
     var showText by remember { mutableStateOf(false) }
 
-    val urlImagen = superHero.image.url
+    val urlImagen = character.image.url
     AsyncImage(
         model = ImageRequest.Builder(context = LocalContext.current)
             .data(urlImagen)
@@ -112,14 +103,14 @@ fun SuperHeroCard(superHero:SuperHero){
     }
 
     if (showText) {
-        mostrar(superHero)
+        mostrar(character)
     }
 }
 
 @Composable
-fun mostrar(superHero: SuperHero){
-    Text(text = superHero.name)
-    Text(text = superHero.powerStats.toString())
+fun mostrar(character: Character){
+    Text(text = character.name)
+    Text(text = character.powerStats.toString())
 }
 
 

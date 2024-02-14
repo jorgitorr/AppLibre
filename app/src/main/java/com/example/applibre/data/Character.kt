@@ -2,7 +2,8 @@ package com.example.applibre.data
 
 import com.google.gson.annotations.SerializedName
 
-data class SuperHero (
+data class Character (
+    val response:String,
     val id:Int,
     val name:String,
     @SerializedName("powerstats")
