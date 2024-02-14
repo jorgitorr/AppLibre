@@ -77,13 +77,10 @@ fun screen(){
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            LazyColumn{
+            /*LazyColumn{
                 item { SuperHeroCard(character = heroDeckViewModel.character) }
-            }
-            
-
-            
-
+            }*/
+            SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck)
         }
     }
 }
@@ -116,23 +113,13 @@ fun SuperHeroCard(character: SuperHero){
 
 @Composable
 fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
-    var showText by remember { mutableStateOf(false) }
     val superHeroList by superHeroes.collectAsState()
 
     LazyRow {
         items(superHeroList) { superHero ->
             SuperHeroCard(superHero)
-            if (showText) {
-                Mostrar(superHero)
-            }
         }
-
     }
-
-    Button(onClick = { showText = !showText }, modifier = Modifier.padding(start = 150.dp)) {
-        Text(if (showText) "Ocultar" else "Ver más")
-    }
-
 }
 
 @Composable
