@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.applibre.data.Character
+import com.example.applibre.data.SuperHeroe
 import com.example.applibre.ui.model.HeroDeckViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,7 +85,7 @@ fun screen(){
  * imprime la carta
  */
 @Composable
-fun SuperHeroCard(character: Character){
+fun SuperHeroCard(character: SuperHeroe){
     var showText by remember { mutableStateOf(false) }
 
     val urlImagen = character.image.url
@@ -108,7 +108,7 @@ fun SuperHeroCard(character: Character){
 }
 
 @Composable
-fun mostrar(character: Character){
+fun mostrar(character: SuperHeroe){
     Text(text = character.name)
     Text(text = character.powerStats.toString())
 }

@@ -10,10 +10,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.applibre.data.Appearance
 import com.example.applibre.data.Biography
 import com.example.applibre.data.Connections
+import com.example.applibre.data.Deck
 import com.example.applibre.data.Image
 import com.example.applibre.data.Player
 import com.example.applibre.data.PowerStats
-import com.example.applibre.data.Character
+import com.example.applibre.data.SuperHeroe
 import com.example.applibre.data.Work
 import com.example.applibre.network.SuperHeroApi
 import com.google.gson.Gson
@@ -32,11 +33,11 @@ class HeroDeckViewModel:ViewModel(){
     private val _nickNamePlayer = MutableLiveData<String>()
     val nickNamePlayer1: LiveData<String> = _nickNamePlayer
 
-    private val _characterDeck  = MutableStateFlow<List<Character>>(emptyList())
-    val characterDeck: StateFlow<List<Character>> = _characterDeck
+    private val _characterDeck  = MutableStateFlow<List<SuperHeroe>>(emptyList())
+    val characterDeck: StateFlow<List<SuperHeroe>> = _characterDeck
 
     var character by mutableStateOf(
-        Character(
+        SuperHeroe(
             response = "",
             id = 0,
             name = "",
@@ -62,19 +63,20 @@ class HeroDeckViewModel:ViewModel(){
 
     fun getSuperHeroe(){
         //iniciamos una corrutina
-        var lista:MutableList<Character> ?= null
         viewModelScope.launch {
                 try {
                     val numAleatorio = Random.nextInt(1, 732).toString()
                     val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio)
                     val gson = Gson()
-                    var superheroResponse = gson.fromJson(superHeroId, Character::class.java)
+                    var superheroResponse = gson.fromJson(superHeroId, SuperHeroe::class.java)
                     character = superheroResponse
+                    //Deck.listaCharacters.add(character) -> mete solo el primero después falla
                 }catch (e:IOException){
 
                 }
         }
     }
+
     /**
      * calcula el poder de los personajes
      */

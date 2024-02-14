@@ -2,7 +2,7 @@ package com.example.applibre.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Character (
+data class SuperHeroe (
     val response:String,
     val id:Int,
     val name:String,
