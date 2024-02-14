@@ -81,6 +81,7 @@ fun screen(){
                 item { SuperHeroCard(character = heroDeckViewModel.character) }
             }*/
             SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck)
+            //a veces me va y a veces me da fallo
         }
     }
 }
