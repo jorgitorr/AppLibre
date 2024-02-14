@@ -6,7 +6,7 @@ class Deck {
 
     companion object {
         // The list to store the deck of cards
-        val listaCharacters: ArrayList<SuperHeroe> = ArrayList()
+        val listaCharacters: ArrayList<SuperHero> = ArrayList()
 
         /**
          * Genera un número aleatorio en el rango de 1 a 731
@@ -25,7 +25,7 @@ class Deck {
          *
          * @return The last card in the deck.
          */
-        fun getSuperHero(): SuperHeroe {
+        fun getSuperHero(): SuperHero {
             val carta = listaCharacters.last()
             listaCharacters.removeLast()
             return carta

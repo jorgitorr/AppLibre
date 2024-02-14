@@ -10,11 +10,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.applibre.data.Appearance
 import com.example.applibre.data.Biography
 import com.example.applibre.data.Connections
-import com.example.applibre.data.Deck
 import com.example.applibre.data.Image
 import com.example.applibre.data.Player
 import com.example.applibre.data.PowerStats
-import com.example.applibre.data.SuperHeroe
+import com.example.applibre.data.SuperHero
 import com.example.applibre.data.Work
 import com.example.applibre.network.SuperHeroApi
 import com.google.gson.Gson
@@ -33,11 +32,13 @@ class HeroDeckViewModel:ViewModel(){
     private val _nickNamePlayer = MutableLiveData<String>()
     val nickNamePlayer1: LiveData<String> = _nickNamePlayer
 
-    private val _characterDeck  = MutableStateFlow<List<SuperHeroe>>(emptyList())
-    val characterDeck: StateFlow<List<SuperHeroe>> = _characterDeck
+    private val _superHero  = MutableStateFlow<List<SuperHero>>(emptyList())
+    val characterDeck: StateFlow<List<SuperHero>> = _superHero
+
+    val lista: MutableList<SuperHero> = mutableListOf()
 
     var character by mutableStateOf(
-        SuperHeroe(
+        SuperHero(
             response = "",
             id = 0,
             name = "",
@@ -64,13 +65,15 @@ class HeroDeckViewModel:ViewModel(){
     fun getSuperHeroe(){
         //iniciamos una corrutina
         viewModelScope.launch {
+
                 try {
                     val numAleatorio = Random.nextInt(1, 732).toString()
                     val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio)
                     val gson = Gson()
-                    var superheroResponse = gson.fromJson(superHeroId, SuperHeroe::class.java)
-                    character = superheroResponse
-                    //Deck.listaCharacters.add(character) -> mete solo el primero después falla
+                    var superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
+                    //character = superheroResponse
+                    lista.add(character)
+                    _superHero.value = lista
                 }catch (e:IOException){
 
                 }
