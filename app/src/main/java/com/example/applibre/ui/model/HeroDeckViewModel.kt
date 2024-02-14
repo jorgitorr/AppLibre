@@ -33,7 +33,7 @@ class HeroDeckViewModel:ViewModel(){
     val nickNamePlayer1: LiveData<String> = _nickNamePlayer
 
     private val _superHero  = MutableStateFlow<List<SuperHero>>(emptyList())
-    val characterDeck: StateFlow<List<SuperHero>> = _superHero
+    val superHeroDeck: StateFlow<List<SuperHero>> = _superHero
 
     val lista: MutableList<SuperHero> = mutableListOf()
 

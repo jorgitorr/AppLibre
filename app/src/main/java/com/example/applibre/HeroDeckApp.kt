@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -14,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,6 +31,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.applibre.data.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
+import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
@@ -76,6 +80,9 @@ fun screen(){
             LazyColumn{
                 item { SuperHeroCard(character = heroDeckViewModel.character) }
             }
+            
+
+            
 
         }
     }
@@ -103,12 +110,33 @@ fun SuperHeroCard(character: SuperHero){
     }
 
     if (showText) {
-        mostrar(character)
+        Mostrar(character)
     }
 }
 
 @Composable
-fun mostrar(character: SuperHero){
+fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
+    var showText by remember { mutableStateOf(false) }
+    val superHeroList by superHeroes.collectAsState()
+
+    LazyRow {
+        items(superHeroList) { superHero ->
+            SuperHeroCard(superHero)
+            if (showText) {
+                Mostrar(superHero)
+            }
+        }
+
+    }
+
+    Button(onClick = { showText = !showText }, modifier = Modifier.padding(start = 150.dp)) {
+        Text(if (showText) "Ocultar" else "Ver más")
+    }
+
+}
+
+@Composable
+fun Mostrar(character: SuperHero){
     Text(text = character.name)
     Text(text = character.powerStats.toString())
 }
