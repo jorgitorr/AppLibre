@@ -64,7 +64,8 @@ class HeroDeckViewModel:ViewModel(){
 
     fun getSuperHeroe(){
         //iniciamos una corrutina
-        viewModelScope.launch {
+        for(i in 0..2){
+            viewModelScope.launch {
                 try {
                     val numAleatorio = Random.nextInt(1, 732).toString()
                     val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio)
@@ -76,6 +77,7 @@ class HeroDeckViewModel:ViewModel(){
                 }catch (e:IOException){
 
                 }
+            }
         }
     }
 
