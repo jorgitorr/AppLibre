@@ -70,8 +70,8 @@ class HeroDeckViewModel:ViewModel(){
                     val numAleatorio = Random.nextInt(1, 732).toString()
                     val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio)
                     val gson = Gson()
-                    var superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
-                    //character = superheroResponse
+                    val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
+                    character = superheroResponse
                     lista.add(character)
                     _superHero.value = lista
                 }catch (e:IOException){
