@@ -60,10 +60,10 @@ fun screen(){
                     Text(
                         text = buildAnnotatedString {
                             withStyle(style = SpanStyle(color = Color.Blue)) {
-                                append("Hero")
+                                append("HERO")
                             }
                             withStyle(style = SpanStyle(color = Color.Red)) {
-                                append("Deck")
+                                append("DECK")
                             }
                         }
                     )
@@ -120,6 +120,7 @@ fun SuperHeroCard(character: SuperHero){
         }
     }
 }
+
 
 @Composable
 fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {

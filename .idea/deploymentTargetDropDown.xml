@@ -2,6 +2,18 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="Pantalla">
+        <State />
+      </entry>
+      <entry key="PreviewGreetingScreen">
+        <State />
+      </entry>
+      <entry key="Skills">
+        <State />
+      </entry>
+      <entry key="TextField">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>

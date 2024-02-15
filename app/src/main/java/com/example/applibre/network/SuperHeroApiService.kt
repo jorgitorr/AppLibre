@@ -1,5 +1,7 @@
 package com.example.applibre.network
 
+import com.example.applibre.data.model.SuperHero
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
@@ -24,6 +26,10 @@ interface SuperHeroApiService{
      */
     @GET("{id}")
     suspend fun getSuperHeroById(@Path("id") id: String): String
+
+
+    @GET("{id}")
+    suspend fun getSuperHero(@Path("id") id: String): Response<SuperHero>
 
 
     /**
