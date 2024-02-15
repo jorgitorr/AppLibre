@@ -9,7 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.applibre.ui.theme.AppLibreTheme
-import com.example.applibre.ui.view.screen
+import com.example.applibre.ui.view.Screen
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
             AppLibreTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    screen()
+                    Screen()
                 }
             }
         }

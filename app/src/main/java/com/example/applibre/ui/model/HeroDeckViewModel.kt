@@ -1,5 +1,6 @@
 package com.example.applibre.ui.model
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -27,15 +28,10 @@ import kotlin.random.Random
  * lógica del programa
  */
 class HeroDeckViewModel:ViewModel(){
-    private val _player = MutableLiveData<Player>()
-
-    private val _nickNamePlayer = MutableLiveData<String>()
-    val nickNamePlayer1: LiveData<String> = _nickNamePlayer
-
     private val _superHero  = MutableStateFlow<List<SuperHero>>(emptyList())
     val superHeroDeck: StateFlow<List<SuperHero>> = _superHero
 
-    val lista: MutableList<SuperHero> = mutableListOf()
+    private val lista: MutableList<SuperHero> = mutableListOf()
 
     var character by mutableStateOf(
         SuperHero(
@@ -57,10 +53,6 @@ class HeroDeckViewModel:ViewModel(){
         getSuperHeroe()
     }
 
-    fun onPlayer(nickName:String){
-        _nickNamePlayer.value = nickName
-    }
-
 
     fun getSuperHeroe(){
         //iniciamos una corrutina
@@ -77,11 +69,10 @@ class HeroDeckViewModel:ViewModel(){
                         _superHero.value = lista
                     }
                 }catch (e:IOException){
-
+                    Log.e("Error: ",e.message.toString())
                 }
             }
         }
     }
-
 }
 

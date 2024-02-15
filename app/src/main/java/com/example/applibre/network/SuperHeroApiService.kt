@@ -28,9 +28,6 @@ interface SuperHeroApiService{
     suspend fun getSuperHeroById(@Path("id") id: String): String
 
 
-    @GET("{id}")
-    suspend fun getSuperHero(@Path("id") id: String): Response<SuperHero>
-
 
     /**
      * @return devuelve el id del personaje

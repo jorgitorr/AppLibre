@@ -4,13 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -20,18 +20,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,46 +41,50 @@ import kotlinx.coroutines.flow.StateFlow
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun visualizar(){
-    screen()
+fun Visualizar(){
+    Screen()
 }
 /*Contiene toda la pantalla*/
 @ExperimentalMaterial3Api
 @Composable
-fun screen(){
+fun Screen(){
+
     val heroDeckViewModel:HeroDeckViewModel = HeroDeckViewModel()
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        text = buildAnnotatedString {
-                            withStyle(style = SpanStyle(color = Color.Blue)) {
-                                append("HERO")
-                            }
-                            withStyle(style = SpanStyle(color = Color.Red)) {
-                                append("DECK")
-                            }
-                        }
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = buildAnnotatedString {
+                                withStyle(style = SpanStyle(color = Color.Blue)) {
+                                    append("HERO ")
+                                }
+                                withStyle(style = SpanStyle(color = Color.Red)) {
+                                    append("DECK")
+                                }
+                            },
+
+                        )
+                    }
                 }
             )
         },
-        /*bottomBar = {
+        bottomBar = {
             BottomAppBar(
                 containerColor = Color.White,
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
-                Button(onClick = { heroDeckViewModel.getSuperHeroe() }) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        text = "Bottom app bar",
-                    )
-                }
+                Image(painter = painterResource(id = R.drawable.back),
+                    contentDescription = "Ir hacia atrás",
+                    modifier = Modifier.size(25.dp))
             }
-        },*/
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -13,7 +14,11 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.core.view.WindowCompat
+import com.example.applibre.R
 
 private val DarkColorScheme = darkColorScheme(
         primary = Red,
@@ -25,6 +30,8 @@ private val LightColorScheme = lightColorScheme(
         primary = Red,
         secondary = Blue,
         tertiary = Azure
+
+
 
         /* Other default colors to override
     background = Color(0xFFFFFBFE),
