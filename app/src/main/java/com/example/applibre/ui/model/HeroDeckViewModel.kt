@@ -40,9 +40,9 @@ class HeroDeckViewModel:ViewModel(){
     var character by mutableStateOf(
         SuperHero(
             response = "",
-            id = 0,
+            id = "0",
             name = "",
-            powerStats = PowerStats(0, 0, 0, 0, 0, 0),
+            powerStats = PowerStats("0", "0", "0", "0", "0", "0"),
             biography = Biography("", "", listOf(), "", "", "", ""),
             appearance = Appearance("", "", listOf(), listOf(), "", ""),
             work = Work("", ""),
@@ -69,10 +69,13 @@ class HeroDeckViewModel:ViewModel(){
                 try {
                     val numAleatorio = Random.nextInt(1, 732).toString()
                     val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio)
+
                     val gson = Gson()
                     val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
-                    lista.add(superheroResponse)
-                    _superHero.value = lista
+                    if(superheroResponse.response=="success"){
+                        lista.add(superheroResponse)
+                        _superHero.value = lista
+                    }
                 }catch (e:IOException){
 
                 }

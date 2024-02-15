@@ -47,11 +47,6 @@ fun ContentDetailView(superHero: SuperHero) {
             Skills(superHero)
         }
 
-        // DCS - Se utiliza para crear y recordar un estado de desplazamiento (ScrollState) a través de recomposiciones.
-        // El argumento 0 es el valor inicial del desplazamiento. Indica que el contenido comienza sin desplazarse
-        // desde su posición original.
-        // Cómo el estado de desplazamiento solo afecta a esta presentación visual y es específico de este composable,
-        // es adecuado manejarlo directamente dentro del mismo composable.
         val scroll = rememberScrollState(0)
 
         Text(

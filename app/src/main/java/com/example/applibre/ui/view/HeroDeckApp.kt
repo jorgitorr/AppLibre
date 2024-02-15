@@ -102,8 +102,6 @@ fun screen(){
  */
 @Composable
 fun SuperHeroCard(character: SuperHero){
-    var showText by remember { mutableStateOf(false) }
-
     val urlImagen = character.image.url
     Card(
         modifier = Modifier.padding(8.dp)

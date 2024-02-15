@@ -31,11 +31,6 @@ fun NavManager(viewModel: HeroDeckViewModel){
             //DetailView(viewModel, navController, id)
             ContentDetailView(superHero = viewModel.character)
         }
-        // DCS - Define un destino composable para la pantalla de búsqueda de juegos.
-        composable("SearchGameView") {
-            // DCS - Llama al composable SearchGameView, pasando el viewModel y navController.
-            //SearchGameView(viewModel, navController)
-        }
     }
 
 }
