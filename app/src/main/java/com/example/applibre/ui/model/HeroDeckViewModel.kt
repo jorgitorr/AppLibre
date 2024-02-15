@@ -7,14 +7,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.applibre.data.Appearance
-import com.example.applibre.data.Biography
-import com.example.applibre.data.Connections
-import com.example.applibre.data.Image
-import com.example.applibre.data.Player
-import com.example.applibre.data.PowerStats
-import com.example.applibre.data.SuperHero
-import com.example.applibre.data.Work
+import com.example.applibre.data.model.Appearance
+import com.example.applibre.data.model.Biography
+import com.example.applibre.data.model.Connections
+import com.example.applibre.data.model.Image
+import com.example.applibre.data.model.Player
+import com.example.applibre.data.model.PowerStats
+import com.example.applibre.data.model.SuperHero
+import com.example.applibre.data.model.Work
 import com.example.applibre.network.SuperHeroApi
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -71,38 +71,13 @@ class HeroDeckViewModel:ViewModel(){
                     val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio)
                     val gson = Gson()
                     val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
-                    character = superheroResponse
-                    lista.add(character)
+                    lista.add(superheroResponse)
                     _superHero.value = lista
                 }catch (e:IOException){
 
                 }
             }
         }
-    }
-
-    /**
-     * calcula el poder de los personajes
-     */
-    private fun checkPuntos(){
-        val powerStats = character.powerStats
-        val totalPowers = powerStats.power + powerStats.combat + powerStats.durability + powerStats.speed
-        + powerStats.strength + powerStats.intelligence
-
-        val powerPercentage = powerStats.power.toDouble() / totalPowers * 10
-        val combatPercentage = powerStats.combat.toDouble() / totalPowers * 15
-        val durabilityPercentage = powerStats.durability.toDouble() / totalPowers * 15
-        val speedPercentage = powerStats.speed.toDouble() / totalPowers * 15
-        val strengthPercentage = powerStats.strength.toDouble() / totalPowers * 20
-        val intelligencePercentage = powerStats.intelligence.toDouble() / totalPowers * 25
-
-        /*
-        * cada turno da mana
-        * y empiezas con uno de mana
-        * cada carta tiene su propio coste de mana
-        * */
-
-
     }
 
 }

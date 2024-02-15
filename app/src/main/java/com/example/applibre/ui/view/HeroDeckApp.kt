@@ -1,20 +1,22 @@
-package com.example.applibre
+package com.example.applibre.ui.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,14 +24,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.applibre.data.SuperHero
+import com.example.applibre.R
+import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
 import kotlinx.coroutines.flow.StateFlow
 
@@ -47,18 +56,23 @@ fun screen(){
     Scaffold(
         topBar = {
             TopAppBar(
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
                 title = {
-                    Text("Hero-Deck")
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(color = Color.Blue)) {
+                                append("Hero")
+                            }
+                            withStyle(style = SpanStyle(color = Color.Red)) {
+                                append("Deck")
+                            }
+                        }
+                    )
                 }
             )
         },
-        bottomBar = {
+        /*bottomBar = {
             BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                containerColor = Color.White,
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 Button(onClick = { heroDeckViewModel.getSuperHeroe() }) {
@@ -70,18 +84,15 @@ fun screen(){
                     )
                 }
             }
-        },
+        },*/
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.Bottom
         ) {
-            /*LazyColumn{
-                item { SuperHeroCard(character = heroDeckViewModel.character) }
-            }*/
+            //EnemyCards()
             SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck)
-            //a veces me va y a veces me da fallo
         }
     }
 }
@@ -94,21 +105,19 @@ fun SuperHeroCard(character: SuperHero){
     var showText by remember { mutableStateOf(false) }
 
     val urlImagen = character.image.url
-    AsyncImage(
-        model = ImageRequest.Builder(context = LocalContext.current)
-            .data(urlImagen)
-            .build(),
-        contentDescription = "SuperHero",
-        contentScale = ContentScale.Crop,
-        modifier = Modifier.fillMaxWidth()
-    )
-
-    Button(onClick = { showText = !showText }, modifier = Modifier.padding(start = 150.dp)) {
-        Text(if (showText) "Ocultar" else "Ver más")
-    }
-
-    if (showText) {
-        Mostrar(character)
+    Card(
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(urlImagen)
+                    .build(),
+                contentDescription = "SuperHero",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }
 
@@ -116,7 +125,7 @@ fun SuperHeroCard(character: SuperHero){
 fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
     val superHeroList by superHeroes.collectAsState()
 
-    LazyRow {
+    LazyRow{
         items(superHeroList) { superHero ->
             SuperHeroCard(superHero)
         }
@@ -124,9 +133,26 @@ fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
 }
 
 @Composable
+fun EnemyCards(){
+    LazyRow {
+        items(3) { index ->
+            Image(
+                painter = painterResource(id = R.drawable.carta_bocabajo),
+                contentDescription = "Carta boca abajo $index",
+                modifier = Modifier.size(200.dp)
+            )
+        }
+    }
+}
+
+@Composable
 fun Mostrar(character: SuperHero){
-    Text(text = character.name)
-    Text(text = character.powerStats.toString())
+    Column{
+        Text(text = character.name)
+        Text(text = character.powerStats.power.toString())
+        Text(text = character.powerStats.durability.toString())
+        Text(text = character.powerStats.speed.toString())
+    }
 }
 
 

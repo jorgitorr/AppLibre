@@ -1,4 +1,4 @@
-package com.example.applibre.data
+package com.example.applibre.data.model
 
 data class Player(
     var vida:Int,
