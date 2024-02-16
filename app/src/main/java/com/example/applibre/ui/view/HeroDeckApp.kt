@@ -10,17 +10,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,6 +56,7 @@ import kotlinx.coroutines.flow.StateFlow
 @ExperimentalMaterial3Api
 @Composable
 fun Screen(heroDeckViewModel: HeroDeckViewModel){
+    val openDialog = remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -77,10 +87,8 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel){
                 containerColor = Color.White,
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
-                Button(onClick = { }) {
-                    Image(painter = painterResource(id = R.drawable.back),
-                        contentDescription = "Ir hacia atrás",
-                        modifier = Modifier.size(25.dp))   
+                IconButton(onClick = { openDialog.value = true }) {
+                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás")
                 }
             }
         },
@@ -90,9 +98,12 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel){
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
-            //EnemyCards()
             SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck)
         }
+    }
+
+    if (openDialog.value) {
+        ExitGameDialog(openDialog = openDialog)
     }
 }
 
@@ -136,7 +147,7 @@ fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
  * muestra por pantalla las cartas bocabajo 
  */
 @Composable
-fun EnemyCards(){
+fun backSideCards(){
     LazyRow {
         items(3) { index ->
             Image(
@@ -147,6 +158,30 @@ fun EnemyCards(){
         }
     }
 }
+
+@Composable
+fun ExitGameDialog(openDialog: MutableState<Boolean>) {
+    AlertDialog(
+        onDismissRequest = { openDialog.value = false },
+        title = { Text(text = "¿Deseas salir del juego?") },
+        confirmButton = {
+            Button(onClick = { /* Handle exit logic here */ }) {
+                Text(text = "ACEPTAR",
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 15.sp))
+            }
+        },
+        dismissButton = {
+            Button(onClick = { openDialog.value = false }) {
+                Text(text = "CANCELAR",
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 15.sp))
+            }
+        }
+    )
+}
+
+
+
+
 
 
 
