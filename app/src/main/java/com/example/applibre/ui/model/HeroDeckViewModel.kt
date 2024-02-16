@@ -56,7 +56,7 @@ class HeroDeckViewModel:ViewModel(){
 
     fun getSuperHeroe(){
         //iniciamos una corrutina
-        for(i in 0..2){
+        for(i in lista.size..3){
             viewModelScope.launch {
                 try {
                     val numAleatorio = Random.nextInt(1, 732).toString()

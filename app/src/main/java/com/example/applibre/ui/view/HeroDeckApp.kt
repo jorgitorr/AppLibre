@@ -27,15 +27,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
+import com.example.applibre.ui.theme.Shrikhand
 import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,7 +51,6 @@ fun Visualizar(){
 @ExperimentalMaterial3Api
 @Composable
 fun Screen(){
-
     val heroDeckViewModel:HeroDeckViewModel = HeroDeckViewModel()
     Scaffold(
         topBar = {
@@ -69,7 +71,7 @@ fun Screen(){
                                     append("DECK")
                                 }
                             },
-
+                            style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp)
                         )
                     }
                 }
