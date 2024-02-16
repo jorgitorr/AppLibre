@@ -1,5 +1,6 @@
 package com.example.applibre.ui.view
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -99,12 +100,15 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel){
             verticalArrangement = Arrangement.Bottom
         ) {
             SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck)
+            MuestraTamanioLista(heroDeckViewModel = heroDeckViewModel)
         }
     }
 
     if (openDialog.value) {
         ExitGameDialog(openDialog = openDialog)
     }
+    
+
 }
 
 /**
@@ -116,15 +120,19 @@ fun SuperHeroCard(character: SuperHero){
     Card(
         modifier = Modifier.padding(8.dp)
     ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(urlImagen)
-                    .build(),
-                contentDescription = "SuperHero",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxWidth()
-            )
+        Column {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(urlImagen)
+                        .build(),
+                    contentDescription = "SuperHero",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            Text(text = character.name,
+                style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp))
         }
     }
 }
@@ -139,6 +147,7 @@ fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
     LazyRow{
         items(superHeroList) { superHero ->
             SuperHeroCard(superHero)
+
         }
     }
 }
@@ -178,6 +187,18 @@ fun ExitGameDialog(openDialog: MutableState<Boolean>) {
             }
         }
     )
+}
+
+
+@Composable
+fun MuestraTamanioLista(heroDeckViewModel: HeroDeckViewModel) {
+    val tamañoLista = remember { mutableStateOf(0) }
+
+    Button(onClick = {
+        tamañoLista.value = heroDeckViewModel.superHeroDeck.value.size
+    }) {
+        Text("Tamaño de la lista: ${tamañoLista.value}")
+    }
 }
 
 
