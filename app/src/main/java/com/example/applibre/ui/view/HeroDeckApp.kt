@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.applibre.R
@@ -41,17 +43,10 @@ import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.Shrikhand
 import kotlinx.coroutines.flow.StateFlow
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-fun Visualizar(){
-    Screen()
-}
-/*Contiene toda la pantalla*/
+
 @ExperimentalMaterial3Api
 @Composable
-fun Screen(){
-    val heroDeckViewModel:HeroDeckViewModel = HeroDeckViewModel()
+fun Screen(heroDeckViewModel: HeroDeckViewModel){
     Scaffold(
         topBar = {
             TopAppBar(
@@ -82,9 +77,11 @@ fun Screen(){
                 containerColor = Color.White,
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
-                Image(painter = painterResource(id = R.drawable.back),
-                    contentDescription = "Ir hacia atrás",
-                    modifier = Modifier.size(25.dp))
+                Button(onClick = { }) {
+                    Image(painter = painterResource(id = R.drawable.back),
+                        contentDescription = "Ir hacia atrás",
+                        modifier = Modifier.size(25.dp))   
+                }
             }
         },
     ) { innerPadding ->
@@ -121,7 +118,9 @@ fun SuperHeroCard(character: SuperHero){
     }
 }
 
-
+/**
+ * imprime la lista
+ */
 @Composable
 fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
     val superHeroList by superHeroes.collectAsState()
@@ -133,6 +132,9 @@ fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
     }
 }
 
+/**
+ * muestra por pantalla las cartas bocabajo 
+ */
 @Composable
 fun EnemyCards(){
     LazyRow {
@@ -143,16 +145,6 @@ fun EnemyCards(){
                 modifier = Modifier.size(200.dp)
             )
         }
-    }
-}
-
-@Composable
-fun Mostrar(character: SuperHero){
-    Column{
-        Text(text = character.name)
-        Text(text = character.powerStats.power.toString())
-        Text(text = character.powerStats.durability.toString())
-        Text(text = character.powerStats.speed.toString())
     }
 }
 

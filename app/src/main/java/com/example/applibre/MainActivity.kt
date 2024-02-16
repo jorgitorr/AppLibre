@@ -8,10 +8,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.applibre.navigation.NavManager
+import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.AppLibreTheme
 import com.example.applibre.ui.view.Screen
 
 class MainActivity : ComponentActivity() {
+    private val heroDeckViewModel: HeroDeckViewModel = HeroDeckViewModel()
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +22,8 @@ class MainActivity : ComponentActivity() {
             AppLibreTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Screen()
+                    //NavManager(viewModel = heroDeckViewModel)
+                    Screen(heroDeckViewModel = heroDeckViewModel)
                 }
             }
         }

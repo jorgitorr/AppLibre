@@ -13,20 +13,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.theme.Red
 
 
+/**
+ * muestra el detalle de la carta
+ */
 @Composable
 fun ContentDetailView(superHero: SuperHero) {
     Column(
@@ -51,7 +52,6 @@ fun ContentDetailView(superHero: SuperHero) {
 
         Text(
             text = superHero.name,
-            color = Color.White,
             textAlign = TextAlign.Justify,
             modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, bottom = 10.dp)
@@ -66,7 +66,6 @@ fun ContentDetailView(superHero: SuperHero) {
  */
 @Composable
 fun Skills(superHero:SuperHero){
-
     Row {
         Box{
             Image(
@@ -74,14 +73,14 @@ fun Skills(superHero:SuperHero){
                 contentDescription = "Icono de fuerza",
                 modifier = Modifier.fillMaxSize()
             )
-            Text(text = superHero.powerStats.strength.toString())
+            Text(text = superHero.powerStats.strength)
         }
 
         Box{
             Image(painter = painterResource(id = R.drawable.durability),
                 contentDescription = "Icono de defensa",
                 modifier = Modifier.fillMaxSize())
-            Text(text = superHero.powerStats.durability.toString())
+            Text(text = superHero.powerStats.durability)
         }
         Box{
             Image(
@@ -89,7 +88,11 @@ fun Skills(superHero:SuperHero){
                 contentDescription = "Icono de velocidad",
                 modifier = Modifier.fillMaxSize()
             )
-            Text(text = superHero.powerStats.speed.toString())
+            Text(text = superHero.powerStats.speed)
+        }
+
+        Button(onClick = { /*TODO*/ }) {
+            Text(text = "USAR")
         }
     }
 }
