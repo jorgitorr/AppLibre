@@ -8,20 +8,24 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.applibre.ui.model.HeroDeckViewModel
+import com.example.applibre.ui.model.LoginViewModel
 import com.example.applibre.ui.view.ContentDetailView
-import com.example.applibre.ui.view.Pantalla
+import com.example.applibre.ui.view.login.TabsView
 
 @Composable
-fun NavManager(viewModel: HeroDeckViewModel){
+fun NavManager(loginVM: LoginViewModel, viewModel: HeroDeckViewModel){
     // DCS - Crea y recuerda una instancia del NavController, que se utiliza para navegar entre composables.
     val navController = rememberNavController()
 
     // DCS - Define el NavHost, que es el contenedor de navegación que gestiona los composables de destino.
     NavHost(navController = navController, startDestination = "Pantalla") {
+        composable("Login"){
+            TabsView(navController, loginVM)
+        }
         // DCS - Define un destino composable para la pantalla de inicio.
         composable("Pantalla") {
             // DCS - Llama al composable HomeView, pasando el viewModel y navController como parámetros.
-            Pantalla(navController)
+            //Pantalla(navController)
         }
         // DCS - Define un destino composable para la pantalla de detalles del juego, incluyendo un argumento dinámico.
         composable("HeroDetail/{id}", arguments = listOf(

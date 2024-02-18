@@ -1,18 +1,14 @@
 package com.example.applibre.ui.model
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.applibre.data.model.Appearance
 import com.example.applibre.data.model.Biography
 import com.example.applibre.data.model.Connections
 import com.example.applibre.data.model.Image
-import com.example.applibre.data.model.Player
 import com.example.applibre.data.model.PowerStats
 import com.example.applibre.data.model.SuperHero
 import com.example.applibre.data.model.Work
@@ -28,15 +24,35 @@ import kotlin.random.Random
  * lógica del programa
  */
 class HeroDeckViewModel:ViewModel(){
+    /**
+     * @param _superHero lista donde guarda el jugador sus superheroes
+     * hay dos listas ya que cada una es para un jugador
+     * @param superHeroDeck es la variable visible que referencia a _superHero
+     * @param listaId es la lista de superheroes que podemos tener entre las cartas
+     * @param lista guarda los superheroes en una lista para después pasarlo a la final
+     */
+
     private val _superHero  = MutableStateFlow<List<SuperHero>>(emptyList())
     val superHeroDeck: StateFlow<List<SuperHero>> = _superHero
 
-    //70 batman, 655 superman, 485 naruto, 215 robot, 201 daredevil,
-    // 435 masterchief, 423 magneto, 620 spiderman, nickfury 489
-    //agente bob -> 10
-    private val listaSuperHeroes = listOf(70,655,485,215,201, 435, 423, 620, 489,
-        10,370)//recorrer la lista
+
+    private val _superHero2  = MutableStateFlow<List<SuperHero>>(emptyList())
+    val superHeroDeck2: StateFlow<List<SuperHero>> = _superHero2
+
+    /**    ID -> NOMBRE SUPERHEROE
+     *     70->batman, 655->superman, 485->naruto, 215->Deathlok, 201->daredevil, 435->masterchief,
+     *     423->magneto, 620->spiderman, 489->nickfury, 10->agente bob, 263->flash, 280->Ghost Rider,
+     *     43->Ares, 52->Atom Girl, 298->Green Arrow, 309->Harley Queen, 311->Havok, 322->HellBoy,
+     *     345->Fire Man, 213->Deathpool, 670->Toad, 538->Ra's Al Ghu, 550->Red Skull
+     * */
+
+    val listaId = listOf(70, 655, 485, 215, 201, 435, 423, 620, 489,
+        10,370, 263, 280, 43, 52, 298, 309, 311, 322, 345, 655, 213,
+        670, 513, 538, 550)
+
     private val lista: MutableList<SuperHero> = mutableListOf()
+
+    private val lista2: MutableList<SuperHero> = mutableListOf()
 
     var character by mutableStateOf(
         SuperHero(
@@ -55,19 +71,21 @@ class HeroDeckViewModel:ViewModel(){
 
 
     init {
-        getSuperHeroe()
+        getSuperheroePlayer1()
+        getSuperHeroePlayer2()
     }
 
 
-    fun getSuperHeroe(){
+    fun getSuperheroePlayer1(){
         //iniciamos una corrutina
         for (i in 0..3) {
             viewModelScope.launch {
                 try {
                     //en vez de pasarle un número aleatorio recorro la lista con los id ya combrobados
                     //que tienen imagenes y demás
-                    val numAleatorio = Random.nextInt(1, 732).toString()
-                    val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(numAleatorio)
+                    val numAleatorio = Random.nextInt(0, listaId.size)
+                    val idAleatorio = listaId[numAleatorio].toString()
+                    val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(idAleatorio)
 
                     val gson = Gson()
                     val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
@@ -75,15 +93,41 @@ class HeroDeckViewModel:ViewModel(){
                         lista.add(superheroResponse)
                         _superHero.value = lista
                     }
-                    else{
-                        Log.d("Jorge: ","ERROR ${superheroResponse.response}")
-                    }
                 }catch (e:IOException){
-                    Log.e("Error: ",e.message.toString())
+
                 }
             }
         }
-        Log.d("lista",lista.size.toString())
+    }
+
+
+    /**
+     * este método falla aún algunas veces
+     */
+    fun getSuperHeroePlayer2(){
+        //iniciamos una corrutina
+        for (i in 0..3) {
+            viewModelScope.launch {
+                try {
+                    //en vez de pasarle un número aleatorio recorro la lista con los id ya combrobados
+                    //que tienen imagenes y demás
+                    val numAleatorio = Random.nextInt(0, listaId.size)
+                    val idAleatorio = listaId[numAleatorio].toString()
+                    val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(idAleatorio)
+
+                    val gson = Gson()
+                    val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
+                    if(superheroResponse.response=="success"){
+                        lista2.add(superheroResponse)
+                        _superHero2.value = lista2
+                    }
+                }catch (e:IOException){
+
+                }
+            }
+        }
     }
 }
+
+
 

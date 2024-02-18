@@ -33,7 +33,7 @@ fun tipoPartida(){
     ) {
         Column(verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
-            Title()
+
             Button(
                 onClick = {  },
                 modifier = Modifier

@@ -100,7 +100,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel){
             verticalArrangement = Arrangement.Bottom
         ) {
             SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck)
-            MuestraTamanioLista(heroDeckViewModel = heroDeckViewModel)
+            SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck2)
         }
     }
 
@@ -189,17 +189,6 @@ fun ExitGameDialog(openDialog: MutableState<Boolean>) {
     )
 }
 
-
-@Composable
-fun MuestraTamanioLista(heroDeckViewModel: HeroDeckViewModel) {
-    val tamañoLista = remember { mutableStateOf(0) }
-
-    Button(onClick = {
-        tamañoLista.value = heroDeckViewModel.superHeroDeck.value.size
-    }) {
-        Text("Tamaño de la lista: ${tamañoLista.value}")
-    }
-}
 
 
 
