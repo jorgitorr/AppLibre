@@ -5,15 +5,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.ktx.firestore
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class LoginViewModel {
+class LoginViewModel : ViewModel(){
+
+    //private val auth: FirebaseAuth = com.google.firebase.ktx.Firebase.auth
+    //private val firestore = com.google.firebase.ktx.Firebase.firestore
 
     var showAlert by mutableStateOf(false)
         private set
@@ -26,6 +32,25 @@ class LoginViewModel {
     var selectedTab by mutableIntStateOf(0)
         private set
 
+
+    /*fun login(onSuccess: () -> Unit){
+        viewModelScope.launch {
+            try {
+                auth.signInWithEmailAndPassword(email,password)
+                    .addOnCompleteListener{task ->
+                        if(task.isSuccessful){
+                            onSuccess()
+                        }else{
+                            Log.d("ERROR DE FB","ERROR")
+                            showAlert = true
+                        }
+                    }
+            }catch (e:Exception){
+                Log.d("ERROR EN JETPACK", "ERROR: ${e.localizedMessage}")
+            }
+
+        }
+    }*/
 
     /**
      * Cierra el diálogo de alerta de error mostrada en la UI.

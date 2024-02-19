@@ -33,7 +33,7 @@ import androidx.navigation.NavController
 import com.example.applibre.navigation.Routes
 import com.example.applibre.ui.model.LoginViewModel
 import com.example.applibre.ui.theme.Shrikhand
-import com.example.applibre.ui.view.ExitGameDialog
+import com.example.applibre.ui.view.cards.ExitGameDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
