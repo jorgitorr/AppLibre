@@ -50,6 +50,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
+import com.example.applibre.navigation.Routes
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.Shrikhand
 import kotlinx.coroutines.flow.StateFlow
@@ -57,7 +58,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 @ExperimentalMaterial3Api
 @Composable
-fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
+fun Screen(heroDeckViewModel: HeroDeckViewModel){
     val openDialog = remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
@@ -130,7 +131,9 @@ fun SuperHeroCard(character: SuperHero){
                             .build(),
                         contentDescription = "SuperHero",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxWidth().clickable {  }
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {  }
                )
 
             }

@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.wear.compose.material.MaterialTheme.colors
 import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
@@ -33,7 +34,7 @@ import com.example.applibre.ui.theme.Red
  * muestra el detalle de la carta
  */
 @Composable
-fun HeroDetailView(superHero: SuperHero) {
+fun HeroDetailView(superHero: SuperHero, navController: NavController) {
     Column(
         modifier = Modifier
             .padding()

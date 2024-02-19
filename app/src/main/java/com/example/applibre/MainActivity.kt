@@ -36,11 +36,13 @@ class MainActivity : ComponentActivity() {
                             tipoPartida(navController = navController)
                         }
                         composable(Routes.cartasPlayer.route){
-                            Screen(heroDeckViewModel = heroDeckViewModel,
-                                navController = navController)
+                            Screen(heroDeckViewModel = heroDeckViewModel)
                         }
                         composable(Routes.login.route){
 
+                        }
+                        composable(Routes.cartaDetalle.route){
+                            HeroDetailView(superHero = heroDeckViewModel.character, navController)
                         }
                     }
 
