@@ -21,12 +21,14 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.applibre.navigation.Routes
 import com.example.applibre.ui.theme.Shrikhand
 import java.time.format.TextStyle
 
-@Preview
+
 @Composable
-fun tipoPartida(){
+fun tipoPartida(navController: NavController){
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -35,7 +37,7 @@ fun tipoPartida(){
             horizontalAlignment = Alignment.CenterHorizontally) {
 
             Button(
-                onClick = {  },
+                onClick = { navController.navigate(Routes.cartasPlayer.route)},
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
@@ -52,7 +54,7 @@ fun tipoPartida(){
             }
             Spacer(modifier = Modifier.padding(10.dp))
             Button(
-                onClick = {  },
+                onClick = { navController.navigate(Routes.login.route) },
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()

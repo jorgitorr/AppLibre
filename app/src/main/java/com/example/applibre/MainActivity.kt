@@ -8,10 +8,17 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.applibre.navigation.NavManager
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.applibre.navigation.Routes
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.AppLibreTheme
+import com.example.applibre.ui.view.HeroDetailView
 import com.example.applibre.ui.view.Screen
+import com.example.applibre.ui.view.tipoPartida
 
 class MainActivity : ComponentActivity() {
     private val heroDeckViewModel: HeroDeckViewModel = HeroDeckViewModel()
@@ -22,8 +29,22 @@ class MainActivity : ComponentActivity() {
             AppLibreTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    //NavManager(viewModel = heroDeckViewModel)
-                    Screen(heroDeckViewModel = heroDeckViewModel)
+                    val navController = rememberNavController()
+
+                    NavHost(navController = navController, startDestination = Routes.tipoPartida.route) {
+                        composable(Routes.tipoPartida.route){
+                            tipoPartida(navController = navController)
+                        }
+                        composable(Routes.cartasPlayer.route){
+                            Screen(heroDeckViewModel = heroDeckViewModel,
+                                navController = navController)
+                        }
+                        composable(Routes.login.route){
+
+                        }
+                    }
+
+                    //Screen(heroDeckViewModel = heroDeckViewModel)
                 }
             }
         }

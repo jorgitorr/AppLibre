@@ -2,6 +2,7 @@ package com.example.applibre.ui.view
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -56,7 +57,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 @ExperimentalMaterial3Api
 @Composable
-fun Screen(heroDeckViewModel: HeroDeckViewModel){
+fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
     val openDialog = remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
@@ -122,14 +123,16 @@ fun SuperHeroCard(character: SuperHero){
     ) {
         Column {
             Box(modifier = Modifier.fillMaxWidth()) {
-                AsyncImage(
-                    model = ImageRequest.Builder(context = LocalContext.current)
-                        .data(urlImagen)
-                        .build(),
-                    contentDescription = "SuperHero",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxWidth()
-                )
+
+               AsyncImage(
+                        model = ImageRequest.Builder(context = LocalContext.current)
+                            .data(urlImagen)
+                            .build(),
+                        contentDescription = "SuperHero",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxWidth().clickable {  }
+               )
+
             }
             Text(text = character.name,
                 style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp))
