@@ -147,7 +147,6 @@ fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
     LazyRow{
         items(superHeroList) { superHero ->
             SuperHeroCard(superHero)
-
         }
     }
 }

@@ -13,6 +13,7 @@ data class SuperHero (
     val work: Work,
     val connections: Connections,
     val image: Image,
+    var vida:Boolean = true
 ){
     override fun toString(): String {
         return "SuperHero(response='$response', id='$id', name='$name', powerStats=$powerStats, biography=$biography, appearance=$appearance, work=$work, connections=$connections, image=$image)"

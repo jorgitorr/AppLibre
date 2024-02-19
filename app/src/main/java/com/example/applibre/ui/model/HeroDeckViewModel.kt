@@ -39,6 +39,7 @@ class HeroDeckViewModel:ViewModel(){
     private val _superHero2  = MutableStateFlow<List<SuperHero>>(emptyList())
     val superHeroDeck2: StateFlow<List<SuperHero>> = _superHero2
 
+
     /**    ID -> NOMBRE SUPERHEROE
      *     70->batman, 655->superman, 485->naruto, 215->Deathlok, 201->daredevil, 435->masterchief,
      *     423->magneto, 620->spiderman, 489->nickfury, 10->agente bob, 263->flash, 280->Ghost Rider,
@@ -48,7 +49,7 @@ class HeroDeckViewModel:ViewModel(){
 
     val listaId = listOf(70, 655, 485, 215, 201, 435, 423, 620, 489,
         10,370, 263, 280, 43, 52, 298, 309, 311, 322, 345, 655, 213,
-        670, 513, 538, 550)
+        670, 538, 550)
 
     private val lista: MutableList<SuperHero> = mutableListOf()
 
@@ -72,7 +73,7 @@ class HeroDeckViewModel:ViewModel(){
 
     init {
         getSuperheroePlayer1()
-        getSuperHeroePlayer2()
+        //getSuperHeroePlayer2() -> no me devuelve siempre 4 no sé porqué
     }
 
 
@@ -83,7 +84,7 @@ class HeroDeckViewModel:ViewModel(){
                 try {
                     //en vez de pasarle un número aleatorio recorro la lista con los id ya combrobados
                     //que tienen imagenes y demás
-                    val numAleatorio = Random.nextInt(0, listaId.size)
+                    val numAleatorio = Random.nextInt(0, listaId.size-1)
                     val idAleatorio = listaId[numAleatorio].toString()
                     val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(idAleatorio)
 
@@ -99,6 +100,8 @@ class HeroDeckViewModel:ViewModel(){
             }
         }
     }
+
+
 
 
     /**
@@ -127,6 +130,22 @@ class HeroDeckViewModel:ViewModel(){
             }
         }
     }
+
+    fun combatir(superHero: SuperHero, superHero2:SuperHero){
+        val powerStats1 = superHero.powerStats
+        val powerStats2 = superHero2.powerStats
+
+        powerStats1.durability = (powerStats2.strength.toInt() - powerStats1.durability.toInt()).toString()
+        powerStats2.durability = (powerStats1.strength.toInt() - powerStats2.durability.toInt()).toString()
+
+        if(powerStats1.durability.toInt()<=0){
+            superHero.vida = false
+        }else if(powerStats2.durability.toInt()<=0){
+            superHero2.vida = false
+        }
+    }
+
+
 }
 
 
