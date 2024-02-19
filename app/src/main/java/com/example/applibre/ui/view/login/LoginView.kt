@@ -1,5 +1,149 @@
 package com.example.applibre.ui.view.login
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.applibre.navigation.Routes
+import com.example.applibre.ui.model.LoginViewModel
+import com.example.applibre.ui.theme.Shrikhand
+import com.example.applibre.ui.view.ExitGameDialog
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Login(loginViewModel: LoginViewModel, navController: NavController){
+    val openDialog = remember { mutableStateOf(false) }
+    androidx.compose.material3.Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = buildAnnotatedString {
+                                withStyle(style = SpanStyle(color = Color.Blue)) {
+                                    append("HERO ")
+                                }
+                                withStyle(style = SpanStyle(color = Color.Red)) {
+                                    append("DECK")
+                                }
+                            },
+                            style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp)
+                        )
+                    }
+                }
+            )
+        },
+        bottomBar = {
+            BottomAppBar(
+                containerColor = Color.White,
+                contentColor = MaterialTheme.colorScheme.primary,
+            ) {
+                IconButton(onClick = { openDialog.value = true }) {
+                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
+                        modifier = Modifier.clickable { navController.navigate(Routes.tipoPartida.route) })
+                }
+            }
+        },
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            IntroducirUsuario(loginViewModel = loginViewModel)
+            Spacer(modifier = Modifier.padding(top = 20.dp))
+            IntroducirContrasenia(loginViewModel = loginViewModel)
+            BotonAceptar()
+            Spacer(modifier = Modifier.padding(top = 5.dp))
+            NoTengoCuenta(navController = navController)
+        }
+    }
+
+    if (openDialog.value) {
+        ExitGameDialog(openDialog = openDialog)
+    }
+}
+
+@Composable
+fun IntroducirUsuario(loginViewModel:LoginViewModel){
+    Text(text = "Usuario", color = Color.Blue,
+        style = TextStyle(
+        fontFamily = Shrikhand,
+        fontSize = 25.sp
+    ))
+    OutlinedTextField(
+        value = loginViewModel.userName,
+        onValueChange = {loginViewModel.changeUserName(it)}
+    )
+}
+
+@Composable
+fun IntroducirContrasenia(loginViewModel: LoginViewModel){
+    Text(text = "Contraseña", color = Color.Red,
+        style = TextStyle(
+            fontFamily = Shrikhand,
+            fontSize = 25.sp
+        ))
+    OutlinedTextField(
+        value = loginViewModel.password,
+        onValueChange = { loginViewModel.changePassword(it) }
+    )
+}
+
+
+@Composable
+fun BotonAceptar(){
+    Text(text = "ACEPTAR",
+            style = TextStyle(
+                fontFamily = Shrikhand,
+                fontSize = 25.sp
+            ),
+            color = Color.Red,
+            modifier = Modifier
+                .clickable { }
+                .padding(50.dp))
+
+}
+
+
+@Composable
+fun NoTengoCuenta(navController: NavController){
+    Text(text = "No tengo cuenta", modifier = Modifier
+        .clickable { navController.navigate(Routes.registro.route) })
+}
 
 

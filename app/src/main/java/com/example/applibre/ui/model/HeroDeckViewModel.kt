@@ -77,6 +77,9 @@ class HeroDeckViewModel:ViewModel(){
     }
 
 
+    /**
+     * obtiene 4 cartas para el jugador
+     */
     fun getSuperheroePlayer1(){
         //iniciamos una corrutina
         for (i in 0..3) {

@@ -58,7 +58,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 @ExperimentalMaterial3Api
 @Composable
-fun Screen(heroDeckViewModel: HeroDeckViewModel){
+fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
     val openDialog = remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
@@ -91,7 +91,8 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel){
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás")
+                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
+                        modifier = Modifier.clickable { navController.navigateUp() })
                 }
             }
         },
@@ -101,8 +102,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel){
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
-            SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck)
-            SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck2)
+            SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck, navController = navController)
         }
     }
 
@@ -117,7 +117,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel){
  * imprime la carta
  */
 @Composable
-fun SuperHeroCard(character: SuperHero){
+fun SuperHeroCard(character: SuperHero, navController: NavController){
     val urlImagen = character.image.url
     Card(
         modifier = Modifier.padding(8.dp)
@@ -132,8 +132,8 @@ fun SuperHeroCard(character: SuperHero){
                         contentDescription = "SuperHero",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {  }
+                            .fillMaxWidth()//aquí hay que pasarle la ruta de la foto o algo
+                            .clickable { navController.navigate(Routes.cartaDetalle.route)}
                )
 
             }
@@ -147,12 +147,12 @@ fun SuperHeroCard(character: SuperHero){
  * imprime la lista
  */
 @Composable
-fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>) {
+fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>, navController: NavController) {
     val superHeroList by superHeroes.collectAsState()
 
     LazyRow{
         items(superHeroList) { superHero ->
-            SuperHeroCard(superHero)
+            SuperHeroCard(superHero,navController)
         }
     }
 }

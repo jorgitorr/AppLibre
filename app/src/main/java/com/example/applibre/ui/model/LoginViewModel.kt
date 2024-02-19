@@ -15,8 +15,6 @@ import java.lang.Exception
 
 class LoginViewModel {
 
-    private val auth: FirebaseAuth = Firebase.auth
-    private val firestore = Firebase.firestore
     var showAlert by mutableStateOf(false)
         private set
     var email by mutableStateOf("")

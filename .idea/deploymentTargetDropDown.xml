@@ -2,22 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ContentDetailView">
-        <State />
-      </entry>
       <entry key="ExitGameDialog">
         <State />
       </entry>
       <entry key="HeroDetailView">
         <State />
       </entry>
+      <entry key="Skills">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>
-      <entry key="mostrarGanador">
+      <entry key="botonAceptar">
         <State />
       </entry>
-      <entry key="tipoPartida">
+      <entry key="mostrarGanador">
         <State />
       </entry>
     </value>
