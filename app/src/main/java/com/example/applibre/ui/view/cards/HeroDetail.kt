@@ -128,20 +128,26 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
 @Composable
 fun Skills(superHero:SuperHero){
     Row{
-        Box(modifier = Modifier.weight(1f)){
+        Column(modifier = Modifier.weight(1f)){
             Image(
                 painter = painterResource(id = R.drawable.strength),
                 contentDescription = "Icono de fuerza",
                 modifier = Modifier.size(50.dp)
             )
-            Text(text = superHero.powerStats.strength)
         }
 
-        Box(modifier = Modifier.weight(1f)){
+        Column(modifier = Modifier.weight(1f)){
             Image(painter = painterResource(id = R.drawable.durability),
                 contentDescription = "Icono de defensa",
                 modifier = Modifier.size(50.dp)
             )
+        }
+    }
+    Row {
+        Column (modifier = Modifier.weight(1f)){
+            Text(text = superHero.powerStats.strength)
+        }
+        Column (modifier = Modifier.weight(1f)){
             Text(text = superHero.powerStats.durability)
         }
     }
