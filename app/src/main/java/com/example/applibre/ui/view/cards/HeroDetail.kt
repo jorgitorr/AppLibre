@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
@@ -96,7 +97,22 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
             verticalArrangement = Arrangement.Bottom
         ) {
             val superHero = heroDeckViewModel.findById(idHero)
-            Skills(superHero = superHero, navController)
+
+            Column {
+                Box(modifier = Modifier.size(500.dp)) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(context = LocalContext.current)
+                            .data(superHero.image.url)
+                            .build(),
+                        contentDescription = "SuperHero",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxWidth()//aquí hay que pasarle la ruta de la foto o algo
+                            .clickable { navController.navigateUp() }
+                    )
+                }
+                Skills(superHero = superHero)
+            }
         }
     }
 
@@ -110,7 +126,7 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
  * iconos con el número de powerStats
  */
 @Composable
-fun Skills(superHero:SuperHero, navController: NavController){
+fun Skills(superHero:SuperHero){
     Row{
         Box(modifier = Modifier.weight(1f)){
             Image(
