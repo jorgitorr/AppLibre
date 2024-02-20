@@ -144,10 +144,10 @@ fun Skills(superHero:SuperHero){
         }
     }
     Row {
-        Column (modifier = Modifier.weight(1f)){
+        Column (modifier = Modifier.weight(1f).padding(start = 10.dp)){
             Text(text = superHero.powerStats.strength)
         }
-        Column (modifier = Modifier.weight(1f)){
+        Column (modifier = Modifier.weight(1f).padding(start = 10.dp)){
             Text(text = superHero.powerStats.durability)
         }
     }
