@@ -86,7 +86,7 @@ fun Login(loginViewModel: LoginViewModel, navController: NavController){
             IntroducirEmail(loginViewModel = loginViewModel)
             Spacer(modifier = Modifier.padding(top = 20.dp))
             IntroducirContrasenia(loginViewModel = loginViewModel)
-            BotonAceptar(loginViewModel,navController)
+            BotonAceptarLogin(loginViewModel,navController)
             Spacer(modifier = Modifier.padding(top = 5.dp))
             NoTengoCuenta(navController = navController)
         }

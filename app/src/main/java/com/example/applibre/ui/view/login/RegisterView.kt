@@ -83,12 +83,13 @@ fun Register(loginViewModel: LoginViewModel, navController: NavController){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            IntroducirUsuario(loginViewModel = loginViewModel)
+            Spacer(modifier = Modifier.padding(top = 20.dp))
             IntroducirEmail(loginViewModel = loginViewModel)
             Spacer(modifier = Modifier.padding(top = 20.dp))
             IntroducirContrasenia(loginViewModel = loginViewModel)
             Spacer(modifier = Modifier.padding(top = 20.dp))
-            BotonAceptar(loginViewModel,navController)
+            BotonAceptarRegistro(loginViewModel,navController)
             Spacer(modifier = Modifier.padding(top = 20.dp))
             TengoCuenta(navController = navController)
         }

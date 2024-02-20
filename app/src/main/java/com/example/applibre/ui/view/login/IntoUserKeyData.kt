@@ -1,6 +1,7 @@
 package com.example.applibre.ui.view.login
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
@@ -57,7 +58,7 @@ fun TengoCuenta(navController: NavController){
 
 
 @Composable
-fun BotonAceptar(loginViewModel: LoginViewModel, navController: NavController){
+fun BotonAceptarLogin(loginViewModel: LoginViewModel, navController: NavController){
     Text(text = "ACEPTAR",
         style = TextStyle(
             fontFamily = Shrikhand,
@@ -72,7 +73,38 @@ fun BotonAceptar(loginViewModel: LoginViewModel, navController: NavController){
 
 
 @Composable
+fun BotonAceptarRegistro(loginViewModel: LoginViewModel, navController: NavController){
+    Text(text = "ACEPTAR",
+        style = TextStyle(
+            fontFamily = Shrikhand,
+            fontSize = 25.sp
+        ),
+        color = Color.Red,
+        modifier = Modifier
+            .clickable { loginViewModel.createUser { navController.navigate("CartasJugador") }}
+            .padding(50.dp))
+
+}
+
+
+@Composable
 fun NoTengoCuenta(navController: NavController){
     Text(text = "No tengo cuenta", modifier = Modifier
         .clickable { navController.navigate("Registro") })
+}
+
+
+
+@Composable
+fun IntroducirUsuario(loginViewModel: LoginViewModel){
+    Text(text = "Usuario", color = Color.Red,
+        style = TextStyle(
+            fontFamily = Shrikhand,
+            fontSize = 25.sp
+        )
+    )
+    OutlinedTextField(
+        value = loginViewModel.userName,
+        onValueChange = { loginViewModel.changeUserName(it) }
+    )
 }
