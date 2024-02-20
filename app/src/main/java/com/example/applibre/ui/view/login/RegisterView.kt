@@ -84,13 +84,11 @@ fun Register(loginViewModel: LoginViewModel, navController: NavController){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            IntroducirUsuario(loginViewModel = loginViewModel)
-            Spacer(modifier = Modifier.padding(top = 20.dp))
             IntroducirEmail(loginViewModel = loginViewModel)
             Spacer(modifier = Modifier.padding(top = 20.dp))
             IntroducirContrasenia(loginViewModel = loginViewModel)
             Spacer(modifier = Modifier.padding(top = 20.dp))
-            BotonAceptar()
+            BotonAceptar(loginViewModel,navController)
             Spacer(modifier = Modifier.padding(top = 20.dp))
             TengoCuenta(navController = navController)
         }
@@ -103,23 +101,4 @@ fun Register(loginViewModel: LoginViewModel, navController: NavController){
 
 
 
-@Composable
-fun IntroducirEmail(loginViewModel: LoginViewModel){
-    Text(text = "Email", color = Color.Red,
-        style = TextStyle(
-            fontFamily = Shrikhand,
-            fontSize = 25.sp
-        ))
-    OutlinedTextField(
-        value = loginViewModel.email,
-        onValueChange = { loginViewModel.changeEmail(it) }
-    )
-}
-
-
-@Composable
-fun TengoCuenta(navController: NavController){
-    Text(text = "Tengo cuenta", modifier = Modifier
-        .clickable { navController.navigate("Login")})
-}
 

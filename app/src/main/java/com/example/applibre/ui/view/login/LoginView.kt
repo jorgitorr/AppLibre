@@ -70,7 +70,7 @@ fun Login(loginViewModel: LoginViewModel, navController: NavController){
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
-                        modifier = Modifier.clickable { navController.navigate("TipoPartida") })
+                        modifier = Modifier.clickable { navController.navigateUp() })
                 }
             }
         },
@@ -83,10 +83,10 @@ fun Login(loginViewModel: LoginViewModel, navController: NavController){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            IntroducirUsuario(loginViewModel = loginViewModel)
+            IntroducirEmail(loginViewModel = loginViewModel)
             Spacer(modifier = Modifier.padding(top = 20.dp))
             IntroducirContrasenia(loginViewModel = loginViewModel)
-            BotonAceptar()
+            BotonAceptar(loginViewModel,navController)
             Spacer(modifier = Modifier.padding(top = 5.dp))
             NoTengoCuenta(navController = navController)
         }
@@ -97,52 +97,7 @@ fun Login(loginViewModel: LoginViewModel, navController: NavController){
     }
 }
 
-@Composable
-fun IntroducirUsuario(loginViewModel:LoginViewModel){
-    Text(text = "Usuario", color = Color.Blue,
-        style = TextStyle(
-        fontFamily = Shrikhand,
-        fontSize = 25.sp
-    ))
-    OutlinedTextField(
-        value = loginViewModel.userName,
-        onValueChange = {loginViewModel.changeUserName(it)}
-    )
-}
-
-@Composable
-fun IntroducirContrasenia(loginViewModel: LoginViewModel){
-    Text(text = "Contraseña", color = Color.Red,
-        style = TextStyle(
-            fontFamily = Shrikhand,
-            fontSize = 25.sp
-        ))
-    OutlinedTextField(
-        value = loginViewModel.password,
-        onValueChange = { loginViewModel.changePassword(it) }
-    )
-}
 
 
-@Composable
-fun BotonAceptar(){
-    Text(text = "ACEPTAR",
-            style = TextStyle(
-                fontFamily = Shrikhand,
-                fontSize = 25.sp
-            ),
-            color = Color.Red,
-            modifier = Modifier
-                .clickable { }
-                .padding(50.dp))
-
-}
-
-
-@Composable
-fun NoTengoCuenta(navController: NavController){
-    Text(text = "No tengo cuenta", modifier = Modifier
-        .clickable { navController.navigate("Registro") })
-}
 
 

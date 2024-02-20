@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.applibre" />
+                  <option name="mobileSdkAppId" value="1:1030330218193:android:86ce654b715645dddb37f0" />
+                  <option name="projectId" value="superherodeck" />
+                  <option name="projectNumber" value="1030330218193" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
