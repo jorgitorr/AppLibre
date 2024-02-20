@@ -7,10 +7,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,6 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -32,6 +37,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
@@ -43,8 +50,8 @@ import com.example.applibre.ui.theme.Shrikhand
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavController) {
-    val superHero = heroDeckViewModel.character//esto está mal
+fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavController, idHero: String) {
+
     val openDialog = remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
@@ -88,12 +95,8 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
-            /*AsyncImage(model = ImageRequest.Builder(context = LocalContext.current)
-                .data(superHero.image.url)
-                .build(), contentDescription = superHero.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize())*/
-            Skills(superHero)
+            val superHero = heroDeckViewModel.findById(idHero)
+            Skills(superHero = superHero, navController)
         }
     }
 
@@ -107,13 +110,13 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
  * iconos con el número de powerStats
  */
 @Composable
-fun Skills(superHero:SuperHero){
+fun Skills(superHero:SuperHero, navController: NavController){
     Row{
         Box(modifier = Modifier.weight(1f)){
             Image(
                 painter = painterResource(id = R.drawable.strength),
                 contentDescription = "Icono de fuerza",
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.size(50.dp)
             )
             Text(text = superHero.powerStats.strength)
         }
@@ -121,20 +124,12 @@ fun Skills(superHero:SuperHero){
         Box(modifier = Modifier.weight(1f)){
             Image(painter = painterResource(id = R.drawable.durability),
                 contentDescription = "Icono de defensa",
-                modifier = Modifier.fillMaxSize())
+                modifier = Modifier.size(50.dp)
+            )
             Text(text = superHero.powerStats.durability)
         }
-        /*speed -> Box(){
-            Image(
-                painter = painterResource(id = R.drawable.speed),
-                contentDescription = "Icono de velocidad",
-                modifier = Modifier.fillMaxSize()
-            )
-            Text(text = superHero.powerStats.speed)
-        }*/
-
-        /*Button(onClick = { /*TODO*/ }) {
-            Text(text = "USAR")
-        }*/
     }
 }
+
+
+

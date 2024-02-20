@@ -55,7 +55,7 @@ class HeroDeckViewModel:ViewModel(){
 
     private val lista2: MutableList<SuperHero> = mutableListOf()
 
-    var character by mutableStateOf(
+    var actualSuperHero by mutableStateOf(
         SuperHero(
             response = "",
             id = "0",
@@ -73,7 +73,6 @@ class HeroDeckViewModel:ViewModel(){
 
     init {
         getSuperheroePlayer1()
-        //getSuperHeroePlayer2() -> no me devuelve siempre 4 no sé porqué
     }
 
 
@@ -107,31 +106,13 @@ class HeroDeckViewModel:ViewModel(){
 
 
 
-    /**
-     * este método falla aún algunas veces
-     */
-    fun getSuperHeroePlayer2(){
-        //iniciamos una corrutina
-        for (i in 0..3) {
-            viewModelScope.launch {
-                try {
-                    //en vez de pasarle un número aleatorio recorro la lista con los id ya combrobados
-                    //que tienen imagenes y demás
-                    val numAleatorio = Random.nextInt(0, listaId.size)
-                    val idAleatorio = listaId[numAleatorio].toString()
-                    val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(idAleatorio)
-
-                    val gson = Gson()
-                    val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
-                    if(superheroResponse.response=="success"){
-                        lista2.add(superheroResponse)
-                        _superHero2.value = lista2
-                    }
-                }catch (e:IOException){
-
-                }
+    fun findById(id:String):SuperHero{
+        for(l in lista){
+            if(l.id == id){
+                 actualSuperHero = l
             }
         }
+        return actualSuperHero
     }
 
     fun combatir(superHero: SuperHero, superHero2:SuperHero){

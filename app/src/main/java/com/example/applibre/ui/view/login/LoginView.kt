@@ -30,7 +30,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.applibre.navigation.Routes
 import com.example.applibre.ui.model.LoginViewModel
 import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.cards.ExitGameDialog
@@ -71,7 +70,7 @@ fun Login(loginViewModel: LoginViewModel, navController: NavController){
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
-                        modifier = Modifier.clickable { navController.navigate(Routes.tipoPartida.route) })
+                        modifier = Modifier.clickable { navController.navigate("TipoPartida") })
                 }
             }
         },
@@ -143,7 +142,7 @@ fun BotonAceptar(){
 @Composable
 fun NoTengoCuenta(navController: NavController){
     Text(text = "No tengo cuenta", modifier = Modifier
-        .clickable { navController.navigate(Routes.registro.route) })
+        .clickable { navController.navigate("Registro") })
 }
 
 

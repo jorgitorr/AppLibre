@@ -47,7 +47,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
-import com.example.applibre.navigation.Routes
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.Shrikhand
 import kotlinx.coroutines.flow.StateFlow
@@ -99,7 +98,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
-            SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck, navController = navController)
+            SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck,navController)
         }
     }
 
@@ -130,7 +129,7 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .fillMaxWidth()//aquí hay que pasarle la ruta de la foto o algo
-                            .clickable { navController.navigate(Routes.cartaDetalle.route)}
+                            .clickable { navController.navigate("HeroDetail/${character.id}") }
                )
 
             }
@@ -149,7 +148,7 @@ fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>, navController: NavCon
 
     LazyRow{
         items(superHeroList) { superHero ->
-            SuperHeroCard(superHero,navController)
+            SuperHeroCard(superHero, navController)
         }
     }
 }

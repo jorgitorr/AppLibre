@@ -30,7 +30,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.applibre.navigation.Routes
 import com.example.applibre.ui.model.LoginViewModel
 import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.cards.ExitGameDialog
@@ -121,6 +120,6 @@ fun IntroducirEmail(loginViewModel: LoginViewModel){
 @Composable
 fun TengoCuenta(navController: NavController){
     Text(text = "Tengo cuenta", modifier = Modifier
-        .clickable { navController.navigate(Routes.login.route)})
+        .clickable { navController.navigate("Login")})
 }
 
