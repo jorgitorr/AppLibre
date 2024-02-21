@@ -1,4 +1,4 @@
-package com.example.applibre.data.model
+package com.example.applibre.data.model.db
 
 data class UserModel(
     val userId: String,

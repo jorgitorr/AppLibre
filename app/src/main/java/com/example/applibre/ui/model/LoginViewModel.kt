@@ -1,5 +1,6 @@
 package com.example.applibre.ui.model
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -7,12 +8,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.applibre.data.model.UserModel
+import com.example.applibre.data.model.db.UserModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.ktx.firestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +21,8 @@ import java.lang.Exception
 
 class LoginViewModel : ViewModel(){
 
-    private val auth: FirebaseAuth = com.google.firebase.ktx.Firebase.auth
+    //private val auth: FirebaseAuth = com.google.firebase.ktx.Firebase.auth -> esta era la antigua
+    private val auth: FirebaseAuth by lazy { Firebase.auth } // es mejor está forma de inicializar ya que es de manera diferida
     private val firestore = com.google.firebase.ktx.Firebase.firestore
 
     var showAlert by mutableStateOf(false)
@@ -33,6 +35,14 @@ class LoginViewModel : ViewModel(){
         private set
     var selectedTab by mutableIntStateOf(0)
         private set
+
+
+    fun signOut(){
+        auth.signOut()
+    }
+    fun getCurrentUser(): FirebaseUser?{
+        return auth.currentUser
+    }
 
 
     fun login(onSuccess: () -> Unit){
@@ -137,6 +147,10 @@ class LoginViewModel : ViewModel(){
      */
     fun changeSelectedTab(selectedTab: Int) {
         this.selectedTab = selectedTab
+    }
+
+    fun singOut(){
+        auth.signOut()
     }
 
 

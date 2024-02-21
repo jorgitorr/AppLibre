@@ -1,4 +1,4 @@
-package com.example.applibre.ui.view.login
+package com.example.applibre.ui.view.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth

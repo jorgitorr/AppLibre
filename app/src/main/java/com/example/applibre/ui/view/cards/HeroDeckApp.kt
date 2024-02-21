@@ -144,8 +144,6 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
                         }
                 )
 
-                //navController.navigate("HeroDetail/${character.id}")
-
             }
             Text(text = character.name,
                 style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp))

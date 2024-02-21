@@ -14,7 +14,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -33,6 +32,11 @@ import androidx.navigation.NavController
 import com.example.applibre.ui.model.LoginViewModel
 import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.cards.ExitGameDialog
+import com.example.applibre.ui.view.components.BotonAceptarRegistro
+import com.example.applibre.ui.view.components.IntroducirContrasenia
+import com.example.applibre.ui.view.components.IntroducirEmail
+import com.example.applibre.ui.view.components.IntroducirUsuario
+import com.example.applibre.ui.view.components.TengoCuenta
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

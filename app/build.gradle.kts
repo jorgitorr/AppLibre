@@ -75,6 +75,8 @@ dependencies {
     // https://firebase.google.com/docs/android/setup#available-libraries
     // DCS - Servicio de Autenticación
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    //authenticacion de Firebase por google
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
     // DCS - Base de datos Firestore
     implementation("com.google.firebase:firebase-firestore-ktx:24.10.2")
     implementation("androidx.core:core-ktx:1.12.0")
@@ -86,6 +88,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.wear.compose:compose-material:1.3.0")
+    implementation("com.google.firebase:firebase-database-ktx:20.3.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
