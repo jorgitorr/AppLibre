@@ -8,14 +8,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.applibre.data.model.db.SuperHero
 import com.example.applibre.data.model.db.UserModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -63,8 +72,6 @@ class LoginViewModel : ViewModel(){
 
         }
     }
-
-
 
     fun createUser(onSuccess: () -> Unit){
         viewModelScope.launch {
@@ -152,6 +159,7 @@ class LoginViewModel : ViewModel(){
     fun singOut(){
         auth.signOut()
     }
+
 
 
 

@@ -14,32 +14,43 @@ import com.example.applibre.data.model.PowerStats
 import com.example.applibre.data.model.SuperHero
 import com.example.applibre.data.model.Work
 import com.example.applibre.network.SuperHeroApi
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import java.io.IOException
 import kotlin.random.Random
 
 /**
- * lógica del programa
+ * lógica de las cartas y de los SuperHeroes
  */
 class HeroDeckViewModel:ViewModel(){
     /**
+     * @param auth Firebase Authentication
+     * @param firestore Inicializa firestore con una instancia del cliente de Firestore.
      * @param _superHero lista donde guarda el jugador sus superheroes
-     * hay dos listas ya que cada una es para un jugador
      * @param superHeroDeck es la variable visible que referencia a _superHero
-     * @param listaId es la lista de superheroes que podemos tener entre las cartas
+     * @param listaId contiene id de los superheroes que podemos tener entre las cartas
      * @param lista guarda los superheroes en una lista para después pasarlo a la final
      */
+    private val auth: FirebaseAuth by lazy { Firebase.auth }
+    private val firestore = Firebase.firestore
+    private val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference.child("card")
 
     private val _superHero  = MutableStateFlow<List<SuperHero>>(emptyList())
     val superHeroDeck: StateFlow<List<SuperHero>> = _superHero
-
-
-    private val _superHero2  = MutableStateFlow<List<SuperHero>>(emptyList())
-    val superHeroDeck2: StateFlow<List<SuperHero>> = _superHero2
-
 
     /**    ID -> NOMBRE SUPERHEROE
      *     70->batman, 655->superman, 485->naruto, 215->Deathlok, 201->daredevil, 435->masterchief,
@@ -48,27 +59,12 @@ class HeroDeckViewModel:ViewModel(){
      *     345->Fire Man, 213->Deathpool, 670->Toad, 538->Ra's Al Ghu, 550->Red Skull
      * */
 
-    val listaId = listOf(70, 655, 485, 215, 201, 435, 423, 620, 489,
+    private val listaId = listOf(70, 655, 485, 215, 201, 435, 423, 620, 489,
         10,370, 263, 280, 43, 52, 298, 309, 311, 322, 345, 655, 213,
         670, 538, 550)
 
     private val lista: MutableList<SuperHero> = mutableListOf()
-
-    private val lista2: MutableList<SuperHero> = mutableListOf()
-
-    var actualSuperHero by mutableStateOf(
-        SuperHero(
-            response = "",
-            id = "0",
-            name = "",
-            powerStats = PowerStats("0", "0", "0", "0", "0", "0"),
-            biography = Biography("", "", listOf(), "", "", "", ""),
-            appearance = Appearance("", "", listOf(), listOf(), "", ""),
-            work = Work("", ""),
-            connections = Connections("", ""),
-            image = Image("")
-        )
-    )
+    private var actualSuperHero by mutableStateOf(SuperHero())
     private set;
 
 
@@ -123,11 +119,27 @@ class HeroDeckViewModel:ViewModel(){
         powerStats1.durability = (powerStats2.strength.toInt() - powerStats1.durability.toInt()).toString()
         powerStats2.durability = (powerStats1.strength.toInt() - powerStats2.durability.toInt()).toString()
 
-        if(powerStats1.durability.toInt()<=0){
-            superHero.vida = false
-        }else if(powerStats2.durability.toInt()<=0){
-            superHero2.vida = false
+    }
+
+
+    fun getSuperHeroe(): Flow<List<com.example.applibre.data.model.db.SuperHero>> {
+        val idFilter = auth.currentUser?.uid
+        val flow = callbackFlow {
+            val listener = databaseReference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val superHeroes = snapshot.children.mapNotNull {
+                        val superHero = snapshot.getValue(com.example.applibre.data.model.db.SuperHero::class.java)
+                        snapshot.key?.let{superHero?.copy(key = it)}
+                    }
+                    trySend(superHeroes.filter { it.id == idFilter })
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    close(error.toException())
+                }
+            })
+            awaitClose { databaseReference.removeEventListener(listener) }
         }
+        return flow
     }
 
 
