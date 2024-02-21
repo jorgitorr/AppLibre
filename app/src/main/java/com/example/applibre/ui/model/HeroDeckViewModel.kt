@@ -1,5 +1,6 @@
 package com.example.applibre.ui.model
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -72,14 +73,14 @@ class HeroDeckViewModel:ViewModel(){
 
 
     init {
-        getSuperheroePlayer1()
+        getSuperHeroes()
     }
 
 
     /**
      * obtiene 4 cartas para el jugador
      */
-    fun getSuperheroePlayer1(){
+    fun getSuperHeroes(){
         //iniciamos una corrutina
         for (i in 0..3) {
             viewModelScope.launch {
@@ -97,15 +98,15 @@ class HeroDeckViewModel:ViewModel(){
                         _superHero.value = lista
                     }
                 }catch (e:IOException){
-
+                    Log.d("getSuperHeroes: ", e.message.toString())
                 }
             }
         }
     }
 
-
-
-
+    /**
+     * devuelve el superHeroe actual
+     */
     fun findById(id:String):SuperHero{
         for(l in lista){
             if(l.id == id){

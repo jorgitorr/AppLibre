@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,10 +35,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.wear.compose.material.MaterialTheme.colors
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.applibre.R
@@ -48,6 +51,11 @@ import com.example.applibre.ui.theme.Shrikhand
 
 /**
  * muestra el detalle de la carta
+ * la imagen en grande
+ * y el poder y la defensa de la carta
+ * @param HeroDechViewModel para poder coger la carta
+ * @param navController para poder redirigirme a la página de atrás al darle otra vez a la carta
+ * @param idHero el id del superHero que estoy clickando
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -96,10 +104,10 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
-            val superHero = heroDeckViewModel.findById(idHero)
+            val superHero = heroDeckViewModel.findById(idHero)//este método devuelve el superHeroe con ese id
 
             Column {
-                Box(modifier = Modifier.size(500.dp)) {
+                Box(modifier = Modifier.size(450.dp)) {
                     AsyncImage(
                         model = ImageRequest.Builder(context = LocalContext.current)
                             .data(superHero.image.url)
@@ -107,11 +115,19 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                         contentDescription = "SuperHero",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .fillMaxWidth()//aquí hay que pasarle la ruta de la foto o algo
+                            .fillMaxWidth()
                             .clickable { navController.navigateUp() }
                     )
                 }
                 Skills(superHero = superHero)
+                Spacer(modifier = Modifier.padding(15.dp))
+                Text(text = "USAR",
+                    Modifier
+                        .clickable { /* si pulsas en USAR */ }
+                        .align(Alignment.CenterHorizontally),
+                    color = Color.Red,
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
+                    textAlign = TextAlign.Center)
             }
         }
     }
@@ -127,28 +143,52 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
  */
 @Composable
 fun Skills(superHero:SuperHero){
-    Row{
-        Column(modifier = Modifier.weight(1f)){
-            Image(
-                painter = painterResource(id = R.drawable.strength),
-                contentDescription = "Icono de fuerza",
-                modifier = Modifier.size(50.dp)
-            )
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(modifier = Modifier.weight(1f)) {
+            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(
+                    painter = painterResource(id = R.drawable.strength),
+                    contentDescription = "Icono de fuerza",
+                    modifier = Modifier.size(50.dp)
+                )
+            }
         }
 
-        Column(modifier = Modifier.weight(1f)){
-            Image(painter = painterResource(id = R.drawable.durability),
-                contentDescription = "Icono de defensa",
-                modifier = Modifier.size(50.dp)
-            )
+        Box(modifier = Modifier.weight(1f)) {
+            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(
+                    painter = painterResource(id = R.drawable.durability),
+                    contentDescription = "Icono de defensa",
+                    modifier = Modifier.size(50.dp)
+                )
+            }
         }
     }
-    Row {
-        Column (modifier = Modifier.weight(1f).padding(start = 10.dp)){
-            Text(text = superHero.powerStats.strength)
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 10.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = superHero.powerStats.strength)
+            }
         }
-        Column (modifier = Modifier.weight(1f).padding(start = 10.dp)){
-            Text(text = superHero.powerStats.durability)
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 10.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = superHero.powerStats.durability)
+            }
         }
     }
 }

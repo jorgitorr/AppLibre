@@ -2,6 +2,7 @@ package com.example.applibre.ui.view.cards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -121,16 +123,28 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
         Column {
             Box(modifier = Modifier.fillMaxWidth()) {
 
-               AsyncImage(
-                        model = ImageRequest.Builder(context = LocalContext.current)
-                            .data(urlImagen)
-                            .build(),
-                        contentDescription = "SuperHero",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()//aquí hay que pasarle la ruta de la foto o algo
-                            .clickable { navController.navigate("HeroDetail/${character.id}") }
-               )
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(urlImagen)
+                        .build(),
+                    contentDescription = "SuperHero",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onDoubleTap = {
+                                    //acción que realiza al hacer doble click
+                                    //tendre que hacer que haya turnos
+                                }
+                            )
+                        }
+                        .clickable {
+                            navController.navigate("HeroDetail/${character.id}")
+                        }
+                )
+
+                //navController.navigate("HeroDetail/${character.id}")
 
             }
             Text(text = character.name,
