@@ -158,10 +158,23 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
 @Composable
 fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewModel) {
     val superHeroList by heroDeckViewModel.superHeroDeck.collectAsState()
-    val superHeroListGuardada by heroDeckViewModel.fetchSuperHeroes().collectAsState()
     LazyRow{
         items(superHeroList) { superHero ->
             SuperHeroCard(superHero, navController)
+        }
+    }
+}
+
+
+/**
+ * imprime la lista de superheroes de la bdd
+ */
+@Composable
+fun SuperHeroListSaved(navController: NavController, heroDeckViewModel:HeroDeckViewModel){
+    val superHeroListGuardada by heroDeckViewModel.fetchSuperHeroes().collectAsState()
+    LazyRow{
+        items(superHeroListGuardada){ superHero ->
+            SuperHeroCard(character = superHero, navController = navController)
         }
     }
 }
