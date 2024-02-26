@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.model.LoginViewModel
+import com.example.applibre.ui.view.cards.Favoritos
 import com.example.applibre.ui.view.cards.HeroDetailView
 import com.example.applibre.ui.view.cards.Screen
 import com.example.applibre.ui.view.login.Login
@@ -42,6 +43,9 @@ fun NavManager(heroDeckViewModel: HeroDeckViewModel, loginViewModel: LoginViewMo
         }
         composable("Registro"){
             Register(loginViewModel = loginViewModel, navController)
+        }
+        composable("Favoritos"){
+            Favoritos(heroDeckViewModel, navController)
         }
 
     }

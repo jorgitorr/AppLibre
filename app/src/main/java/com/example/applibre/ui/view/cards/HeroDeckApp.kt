@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
@@ -106,6 +107,10 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
             verticalArrangement = Arrangement.Bottom
         ) {
             SuperHeroList(navController,heroDeckViewModel)
+            IconButton(onClick = { openDialog.value = true }) {
+                Icon(Icons.Filled.Favorite, contentDescription = "Favoritos",
+                    modifier = Modifier.clickable { navController.navigate("Favoritos") })
+            }
         }
     }
 
@@ -170,18 +175,6 @@ fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewMo
 }
 
 
-/**
- * imprime la lista de superheroes de la bdd
- */
-@Composable
-fun SuperHeroListSaved(navController: NavController, heroDeckViewModel:HeroDeckViewModel){
-    val superHeroListGuardada by heroDeckViewModel.fetchSuperHeroes().collectAsState()
-    LazyRow{
-        items(superHeroListGuardada){ superHero ->
-            SuperHeroCard(character = superHero, navController = navController)
-        }
-    }
-}
 
 /**
  * muestra por pantalla las cartas bocabajo 

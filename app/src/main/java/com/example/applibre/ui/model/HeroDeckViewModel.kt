@@ -128,6 +128,7 @@ class HeroDeckViewModel:ViewModel(){
                     "id" to actualSuperHero.id,
                     "name" to actualSuperHero.name,
                     "powerstats" to actualSuperHero.powerStats,
+                    "image" to actualSuperHero.image.url,
                     "emailUser" to email.toString()
                 )
                 firestore.collection("SuperHeroes")
