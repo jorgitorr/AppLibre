@@ -1,5 +1,6 @@
 package com.example.applibre.ui.view.cards
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -52,6 +53,7 @@ import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.Shrikhand
+import com.example.applibre.ui.view.components.PlayAudio
 import kotlinx.coroutines.flow.StateFlow
 
 
@@ -59,6 +61,7 @@ import kotlinx.coroutines.flow.StateFlow
 @Composable
 fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
     val openDialog = remember { mutableStateOf(false) }
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -93,6 +96,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
                         modifier = Modifier.clickable { navController.navigateUp() })
                 }
+                PlayAudio(context = context)
             }
         },
     ) { innerPadding ->
