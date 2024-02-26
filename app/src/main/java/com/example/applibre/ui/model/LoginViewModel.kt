@@ -1,6 +1,5 @@
 package com.example.applibre.ui.model
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -8,29 +7,29 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.applibre.data.model.db.SuperHero
 import com.example.applibre.data.model.db.UserModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
+/**
+ * ViewModel del login del usuario
+ */
 class LoginViewModel : ViewModel(){
+    /**
+     * @param auth autorización para acceder a la base de datos
+     * @param firestore proporciona acceso a los servicios de firebase
+     * @param showAlert booleano que muestra el DialogAlert cuando está true y lo oculta en false
+     * @param email email del usuario
+     * @param password contraseña del usuario
+     * @param username nombre del usuario
+     */
 
-    //private val auth: FirebaseAuth = com.google.firebase.ktx.Firebase.auth -> esta era la antigua
     private val auth: FirebaseAuth by lazy { Firebase.auth } // es mejor está forma de inicializar ya que es de manera diferida
     private val firestore = com.google.firebase.ktx.Firebase.firestore
 
@@ -42,8 +41,6 @@ class LoginViewModel : ViewModel(){
         private set
     var userName by mutableStateOf("")
         private set
-    var selectedTab by mutableIntStateOf(0)
-        private set
 
 
     fun signOut(){
@@ -54,6 +51,12 @@ class LoginViewModel : ViewModel(){
     }
 
 
+    /**
+     * función que te permite iniciar sesion
+     * @param onSuccess lambda que realiza algo cuando es satisfactorio el inicio de sesion
+     * en este caso se le pasaria el nav que va a la página que nos interese
+     * Dentro realiza una corrutina para iniciar sesion con un email y una contrasenia
+     */
     fun login(onSuccess: () -> Unit){
         viewModelScope.launch {
             try {
@@ -73,6 +76,10 @@ class LoginViewModel : ViewModel(){
         }
     }
 
+    /**
+     * crea un usuario que se guarda en la base de datos
+     * @param onSuccess se le pasa un nav que va a la pantalla de creacion de usuario
+     */
     fun createUser(onSuccess: () -> Unit){
         viewModelScope.launch {
             try {
@@ -82,7 +89,7 @@ class LoginViewModel : ViewModel(){
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             // DCS - Si se realiza con éxito, almacenamos el usuario en la colección "Users"
-                            saveUser(userName)
+                            saveUser(userName)//lama a la función guardar usuario y lo guarda
                             onSuccess()
                         } else {
                             Log.d("ERROR EN FIREBASE","Error al crear usuario")
@@ -95,6 +102,10 @@ class LoginViewModel : ViewModel(){
         }
     }
 
+    /**
+     * @param username se le pasa el nombre de usuario que queremos guardar
+     * Dentro realiza una corrutina que guarda el usuario actual con el usuario que tenemos
+     */
     private fun saveUser(username: String){
         val id = auth.currentUser?.uid
         val email = auth.currentUser?.email
@@ -147,15 +158,10 @@ class LoginViewModel : ViewModel(){
         this.userName = userName
     }
 
-    /**
-     * Cambia la pestaña seleccionada en la UI.
-     *
-     * @param selectedTab Índice de la nueva pestaña seleccionada.
-     */
-    fun changeSelectedTab(selectedTab: Int) {
-        this.selectedTab = selectedTab
-    }
 
+    /**
+     * cierra sesion
+     */
     fun singOut(){
         auth.signOut()
     }

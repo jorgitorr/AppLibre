@@ -1,5 +1,6 @@
 package com.example.applibre.ui.view.cards
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -62,6 +63,7 @@ import com.example.applibre.ui.theme.Shrikhand
 fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavController, idHero: String) {
 
     val openDialog = remember { mutableStateOf(false) }
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -121,9 +123,11 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                 }
                 Skills(superHero = superHero)
                 Spacer(modifier = Modifier.padding(15.dp))
-                Text(text = "USAR",
+                Text(text = "GUARDAR",
                     Modifier
-                        .clickable { /* si pulsas en USAR */ }
+                        .clickable { heroDeckViewModel.saveSuperHero {
+                            Toast.makeText(context,"SuperHeroe guardado",Toast.LENGTH_SHORT).show()
+                        } }
                         .align(Alignment.CenterHorizontally),
                     color = Color.Red,
                     style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),

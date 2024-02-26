@@ -26,6 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -100,7 +101,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
-            SuperHeroList(superHeroes = heroDeckViewModel.superHeroDeck,navController)
+            SuperHeroList(navController,heroDeckViewModel)
         }
     }
 
@@ -155,9 +156,9 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
  * imprime la lista
  */
 @Composable
-fun SuperHeroList(superHeroes: StateFlow<List<SuperHero>>, navController: NavController) {
-    val superHeroList by superHeroes.collectAsState()
-
+fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewModel) {
+    val superHeroList by heroDeckViewModel.superHeroDeck.collectAsState()
+    val superHeroListGuardada by heroDeckViewModel.fetchSuperHeroes().collectAsState()
     LazyRow{
         items(superHeroList) { superHero ->
             SuperHeroCard(superHero, navController)
@@ -173,7 +174,7 @@ fun BackSideCards(){
     LazyRow {
         items(3) { index ->
             Image(
-                painter = painterResource(id = R.drawable.carta_bocabajo),
+                painter = painterResource(id = R.drawable.carta_boca_abajo),
                 contentDescription = "Carta boca abajo $index",
                 modifier = Modifier.size(200.dp)
             )
