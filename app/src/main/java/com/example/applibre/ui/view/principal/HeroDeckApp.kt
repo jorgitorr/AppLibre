@@ -14,8 +14,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
@@ -72,7 +76,8 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                 title = {
                     Box(
                         modifier = Modifier
-                            .fillMaxSize().background(color = Azure),
+                            .fillMaxSize()
+                            .background(color = Azure),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
@@ -96,7 +101,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás")
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Ir hacia atrás")
                 }
                 //PlayAudio(context = context)//Audio del juego
                 AlertFavorites(navController = navController)
@@ -105,7 +110,8 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(innerPadding).background(color = Azure),
+                .padding(innerPadding)
+                .background(color = Azure),
             verticalArrangement = Arrangement.Bottom
         ) {
 
@@ -159,7 +165,10 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
     }
 }
 
-
+/**
+ * sobreescribible que le pasa el SuperHeroState
+ * ya que solo es un string de la imagen
+ */
 @Composable
 fun SuperHeroCard(character: SuperHeroState, navController: NavController){
     val urlImagen = character.image
@@ -204,12 +213,12 @@ fun SuperHeroCard(character: SuperHeroState, navController: NavController){
 fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewModel) {
     val superHeroList by heroDeckViewModel.superHeroDeckDC.collectAsState()//coge las cartas con la lista de cartas DC
     val superHeroList2 by heroDeckViewModel.superHeroDeckMarvel.collectAsState()//coge las cartas con la lista de cartas Marvel
-    LazyColumn{
+    LazyVerticalGrid(columns =  GridCells.Adaptive(minSize = 128.dp)){
         items(superHeroList) { superHero ->
                 SuperHeroCard(superHero, navController)
         }
-        items(superHeroList2){
-            superHero -> SuperHeroCard(superHero, navController)
+        items(superHeroList2){ superHero ->
+            SuperHeroCard(superHero, navController)
         }
     }
 
@@ -217,7 +226,7 @@ fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewMo
 }
 
 /**
- * muestra por pantalla las cartas bocabajo 
+ * muestra por pantalla las cartas bocabajo
  */
 @Composable
 fun BackSideCards(){

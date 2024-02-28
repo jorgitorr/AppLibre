@@ -89,7 +89,6 @@ fun Favoritos(heroDeckViewModel: HeroDeckViewModel, navController: NavController
                         Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
                         modifier = Modifier.clickable { navController.navigateUp() })
                 }
-                //PlayAudio(context = context)
             }
         },
     ) { innerPadding ->

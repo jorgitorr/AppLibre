@@ -18,7 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -31,39 +34,49 @@ import java.time.format.TextStyle
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun TipoPartida(navController: NavController){
-    Text(
-        text = "HERODECK", style = androidx.compose.ui.text.TextStyle(
-            fontFamily = Shrikhand,
-            fontSize = 25.sp
-        )
-    )
-    Box(
+fun TipoPartida(navController: NavController) {
+
+
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Azure),
-        contentAlignment = Alignment.Center,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Text(
+            text = buildAnnotatedString {
+                withStyle(style = SpanStyle(color = Blue)) {
+                    append("HERO ")
+                }
+                withStyle(style = SpanStyle(color = Red)) {
+                    append("DECK")
+                }
+            },
+            style = androidx.compose.ui.text.TextStyle(fontFamily = Shrikhand, fontSize = 58.sp),
+            modifier = Modifier.padding(bottom = 200.dp)
+        )
+
+
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-
             Button(
                 onClick = { navController.navigate("CartasJugador")},
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
                     .height(50.dp),
-                colors = ButtonDefaults.buttonColors(White) // Cambia el color del botón
+                colors = ButtonDefaults.buttonColors(White)
             ) {
                 Text(
-                    text = "LOCAL",
+                    text = "CONTINUAR",
                     style = androidx.compose.ui.text.TextStyle(
                         fontFamily = Shrikhand,
                         fontSize = 25.sp,
-                        color = Blue // Cambia el color del texto del botón
+                        color = Blue
                     ),
                     textAlign = TextAlign.Center
                 )
@@ -78,11 +91,11 @@ fun TipoPartida(navController: NavController){
                 colors = ButtonDefaults.buttonColors(White)
             ) {
                 Text(
-                    text = "ONLINE",
+                    text = "REGISTRARSE",
                     style = androidx.compose.ui.text.TextStyle(
                         fontFamily = Shrikhand,
                         fontSize = 25.sp,
-                        color = Red // Cambia el color del texto del botón
+                        color = Red
                     ),
                     textAlign = TextAlign.Center
                 )
