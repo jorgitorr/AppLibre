@@ -100,7 +100,7 @@ fun Register(loginViewModel: LoginViewModel, navController: NavController){
     }
 
     if (openDialog.value) {
-        ExitGameDialog(openDialog = openDialog)
+        ExitGameDialog(openDialog = openDialog, navController)
     }
 }
 

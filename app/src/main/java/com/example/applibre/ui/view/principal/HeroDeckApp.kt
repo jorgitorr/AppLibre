@@ -7,17 +7,15 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
@@ -56,7 +54,6 @@ import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.components.AlertFavorites
-import com.example.applibre.ui.view.components.PlayAudio
 
 
 @ExperimentalMaterial3Api
@@ -95,8 +92,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
-                        modifier = Modifier.clickable { navController.navigateUp() })
+                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás")
                 }
                 //PlayAudio(context = context)//Audio del juego
                 AlertFavorites(navController = navController)
@@ -108,14 +104,15 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
-            SuperHeroList(navController,heroDeckViewModel)
+
+            SuperHeroList(navController, heroDeckViewModel)
+
         }
     }
 
     if (openDialog.value) {
-        ExitGameDialog(openDialog = openDialog)
+        ExitGameDialog(openDialog = openDialog, navController)
     }
-    
 
 }
 
@@ -163,13 +160,25 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
  */
 @Composable
 fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewModel) {
-    val superHeroList by heroDeckViewModel.superHeroDeck.collectAsState()
-    LazyRow{
+    val superHeroList by heroDeckViewModel.superHeroDeckDC.collectAsState()
+    val superHeroList2 by heroDeckViewModel.superHeroDeckMarvel.collectAsState()
+    LazyColumn{
         items(superHeroList) { superHero ->
-            SuperHeroCard(superHero, navController)
+                SuperHeroCard(superHero, navController)
+        }
+        items(superHeroList2){
+            superHero -> SuperHeroCard(superHero, navController)
         }
     }
+
+
 }
+
+
+/**
+ * imprime la lista
+ */
+
 
 
 
@@ -190,13 +199,13 @@ fun BackSideCards(){
 }
 
 @Composable
-fun ExitGameDialog(openDialog: MutableState<Boolean>) {
+fun ExitGameDialog(openDialog: MutableState<Boolean>, navController: NavController) {
     AlertDialog(
         onDismissRequest = { openDialog.value = false },
         title = { Text(text = "¿Deseas salir del juego?",
             style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp)) },
         confirmButton = {
-            Button(onClick = { /* Handle exit logic here */ }) {
+            Button(onClick = { navController.navigateUp() } ) {
                 Text(text = "ACEPTAR",
                     style = TextStyle(fontFamily = Shrikhand, fontSize = 15.sp))
             }

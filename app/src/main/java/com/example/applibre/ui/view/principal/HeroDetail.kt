@@ -134,7 +134,7 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
     }
 
     if (openDialog.value) {
-        ExitGameDialog(openDialog = openDialog)
+        ExitGameDialog(openDialog = openDialog, navController)
     }
 }
 

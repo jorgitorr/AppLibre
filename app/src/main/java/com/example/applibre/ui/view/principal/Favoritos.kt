@@ -92,7 +92,7 @@ fun Favoritos(heroDeckViewModel: HeroDeckViewModel, navController: NavController
     }
 
     if (openDialog.value) {
-        ExitGameDialog(openDialog = openDialog)
+        ExitGameDialog(openDialog = openDialog, navController)
     }
 
 

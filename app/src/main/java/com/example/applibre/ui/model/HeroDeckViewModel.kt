@@ -30,22 +30,32 @@ class HeroDeckViewModel:ViewModel(){
      * @param firestore Inicializa firestore con una instancia del cliente de Firestore.
      * @param _superHero lista donde guarda el jugador sus superheroes
      * @param superHeroDeck es la variable visible que referencia a _superHero
+     * @param superHeroesDC contiene superHeroes de la lista de DC
+     * @param superHeroresMarvel contiene superHeroes de la lista de Marvel
      * @param lista guarda los superheroes en una lista para después pasarlo a la final
      * @param actualSuperHero superHeroe seleccionado actual
      * @param listaId contiene id de los superheroes que podemos tener entre las cartas
+     * @param listaIdDc contiene id de superheroes de DC
+     * @param listaMarvel contiene id de superheroes de Marvel
+     * @param showAlert te muestra o no la pantalla de salir
      * contiene los id de los superheroes y estos son los que contiene:
      *     ID -> nombre superHeroe
      *     70->batman, 655->superman, 485->naruto, 215->Deathlok, 201->daredevil, 435->master chief,
      *     423->magneto, 620->spiderman, 489->nick fury, 10->agent bob, 263->flash, 280->Ghost Rider,
      *     43->Ares, 52->Atom Girl, 298->Green Arrow, 309->Harley Queen, 311->Havok, 322->HellBoy,
      *     345->Fire Man, 213->Death-pool, 670->Toad, 538->Ra's Al Ghu, 550->Red Skull
+     *     720 -> Wonder Woman, 491 -> NigthWing, 165 -> Catwoman, 194 -> Cyborg, 38 -> Aquaman,
+     *     432 -> Martian manhunter, 132 -> Booster Gold, 367 -> John Constantine
      * */
 
     private val auth: FirebaseAuth by lazy { Firebase.auth }
     private val firestore = Firebase.firestore
 
-    private val _superHero  = MutableStateFlow<List<SuperHero>>(emptyList())
-    val superHeroDeck: StateFlow<List<SuperHero>> = _superHero
+    private val _superHeroesDC  = MutableStateFlow<List<SuperHero>>(emptyList())
+    val superHeroDeckDC: StateFlow<List<SuperHero>> = _superHeroesDC
+
+    private val _superHeroesMarvel  = MutableStateFlow<List<SuperHero>>(emptyList())
+    val superHeroDeckMarvel: StateFlow<List<SuperHero>> = _superHeroesMarvel
 
     private val _superHeroDeckPlayer = MutableStateFlow<List<SuperHero>>(emptyList())
 
@@ -53,12 +63,20 @@ class HeroDeckViewModel:ViewModel(){
     private var actualSuperHero by mutableStateOf(SuperHero())
         private set;
 
+    private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367 )
+    private val listaIdMarvel = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
+        213, 670)
+
+
     private val listaId = listOf(70, 655, 485, 215, 201, 435, 423, 620, 489,
         10,370, 263, 280, 43, 52, 298, 309, 311, 322, 345, 655, 213,
         670, 538, 550)
 
+
     init {
-        getSuperHeroes()
+        //getSuperHeroes()
+        getSuperHeroesDC()
+        getSuperHeroesMarvel()
     }
 
 
@@ -81,7 +99,7 @@ class HeroDeckViewModel:ViewModel(){
                     val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
                     if(superheroResponse.response=="success"){
                         lista.add(superheroResponse)
-                        _superHero.value = lista
+                        _superHeroesDC.value = lista
                     }
                 }catch (e:IOException){
                     Log.d("getSuperHeroes: ", e.message.toString())
@@ -89,6 +107,54 @@ class HeroDeckViewModel:ViewModel(){
             }
         }
     }
+
+
+    /**
+     * obtiene superHeroes de DC
+     */
+    fun getSuperHeroesDC(){
+        //iniciamos una corrutina
+        lista.clear()
+        for (i in listaIdDc.indices) {
+            viewModelScope.launch {
+                try {
+                    val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(listaIdDc[i].toString())
+
+                    val gson = Gson()
+                    val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
+                    if(superheroResponse.response=="success"){
+                        lista.add(superheroResponse)
+                        _superHeroesDC.value = lista
+                    }
+                }catch (e:IOException){
+                    Log.d("getSuperHeroes: ", e.message.toString())
+                }
+            }
+        }
+    }
+
+
+    fun getSuperHeroesMarvel(){
+        //iniciamos una corrutina
+        lista.clear()
+        for (i in listaIdDc.indices) {
+            viewModelScope.launch {
+                try {
+                    val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(listaIdMarvel[i].toString())
+
+                    val gson = Gson()
+                    val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)
+                    if(superheroResponse.response=="success"){
+                        lista.add(superheroResponse)
+                        _superHeroesDC.value = lista
+                    }
+                }catch (e:IOException){
+                    Log.d("getSuperHeroes: ", e.message.toString())
+                }
+            }
+        }
+    }
+
 
     /**
      * devuelve el superHeroe actual
