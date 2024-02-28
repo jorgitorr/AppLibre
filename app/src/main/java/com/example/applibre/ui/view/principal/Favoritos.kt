@@ -1,4 +1,4 @@
-package com.example.applibre.ui.view.cards
+package com.example.applibre.ui.view.principal
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,10 +10,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,7 +19,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -91,7 +87,7 @@ fun Favoritos(heroDeckViewModel: HeroDeckViewModel, navController: NavController
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
-            SuperHeroListSaved(navController, heroDeckViewModel)
+            //SuperHeroListSaved(navController, heroDeckViewModel)
         }
     }
 

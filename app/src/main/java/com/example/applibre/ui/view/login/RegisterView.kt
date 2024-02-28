@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.applibre.ui.model.LoginViewModel
 import com.example.applibre.ui.theme.Shrikhand
-import com.example.applibre.ui.view.cards.ExitGameDialog
+import com.example.applibre.ui.view.principal.ExitGameDialog
 import com.example.applibre.ui.view.components.BotonAceptarRegistro
 import com.example.applibre.ui.view.components.IntroducirContrasenia
 import com.example.applibre.ui.view.components.IntroducirEmail

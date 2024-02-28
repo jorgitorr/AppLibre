@@ -1,9 +1,7 @@
 package com.example.applibre.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,9 +9,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.model.LoginViewModel
-import com.example.applibre.ui.view.cards.Favoritos
-import com.example.applibre.ui.view.cards.HeroDetailView
-import com.example.applibre.ui.view.cards.Screen
+import com.example.applibre.ui.view.principal.Favoritos
+import com.example.applibre.ui.view.principal.HeroDetailView
+import com.example.applibre.ui.view.principal.Screen
 import com.example.applibre.ui.view.login.Login
 import com.example.applibre.ui.view.login.Register
 import com.example.applibre.ui.view.tipoPartida

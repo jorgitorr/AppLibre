@@ -1,9 +1,5 @@
 package com.example.applibre.ui.view.login
 
-import android.app.Activity
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -37,16 +31,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.applibre.ui.model.LoginViewModel
 import com.example.applibre.ui.theme.Shrikhand
-import com.example.applibre.ui.view.cards.ExitGameDialog
+import com.example.applibre.ui.view.principal.ExitGameDialog
 import com.example.applibre.ui.view.components.Alert
 import com.example.applibre.ui.view.components.BotonAceptarLogin
 import com.example.applibre.ui.view.components.IntroducirContrasenia
 import com.example.applibre.ui.view.components.IntroducirEmail
 import com.example.applibre.ui.view.components.NoTengoCuenta
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import java.lang.Exception
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,12 +1,14 @@
-package com.example.applibre.ui.view.cards
+package com.example.applibre.ui.view.principal
 
-import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,7 +30,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -54,8 +55,8 @@ import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.Shrikhand
+import com.example.applibre.ui.view.components.AlertFavorites
 import com.example.applibre.ui.view.components.PlayAudio
-import kotlinx.coroutines.flow.StateFlow
 
 
 @ExperimentalMaterial3Api
@@ -97,7 +98,8 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
                         modifier = Modifier.clickable { navController.navigateUp() })
                 }
-                PlayAudio(context = context)
+                //PlayAudio(context = context)//Audio del juego
+                AlertFavorites(navController = navController)
             }
         },
     ) { innerPadding ->
@@ -107,10 +109,6 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
             verticalArrangement = Arrangement.Bottom
         ) {
             SuperHeroList(navController,heroDeckViewModel)
-            IconButton(onClick = { openDialog.value = true }) {
-                Icon(Icons.Filled.Favorite, contentDescription = "Favoritos",
-                    modifier = Modifier.clickable { navController.navigate("Favoritos") })
-            }
         }
     }
 
@@ -132,7 +130,7 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
     ) {
         Column {
             Box(modifier = Modifier.fillMaxWidth()) {
-
+                Log.d("Imagen",urlImagen)
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
                         .data(urlImagen)
@@ -144,8 +142,7 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
                         .pointerInput(Unit) {
                             detectTapGestures(
                                 onDoubleTap = {
-                                    //acción que realiza al hacer doble click
-                                    //tendre que hacer que haya turnos
+
                                 }
                             )
                         }
