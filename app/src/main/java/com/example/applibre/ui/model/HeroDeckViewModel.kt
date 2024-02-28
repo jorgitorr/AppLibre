@@ -35,7 +35,7 @@ class HeroDeckViewModel:ViewModel(){
      * @param superHeroresMarvel contiene superHeroes de la lista de Marvel
      * @param lista guarda los superheroes en una lista para después pasarlo a la final
      * @param actualSuperHero superHeroe seleccionado actual
-     * @param listaId contiene id de los superheroes que podemos tener entre las cartas
+     * @param listaId contiene id de todos los superheroes que podemos tener entre las cartas
      * @param listaIdDc contiene id de superheroes de DC
      * @param listaMarvel contiene id de superheroes de Marvel
      * @param showAlert te muestra o no la pantalla de salir
@@ -70,9 +70,8 @@ class HeroDeckViewModel:ViewModel(){
         213, 670)
 
 
-    private val listaId = listOf(70, 655, 485, 215, 201, 435, 423, 620, 489,
-        10,370, 263, 280, 43, 52, 298, 309, 311, 322, 345, 655, 213,
-        670, 538, 550)
+    private val listaId = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
+        213, 670, 70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367 )
 
 
     init {
@@ -215,7 +214,7 @@ class HeroDeckViewModel:ViewModel(){
     }
 
     /**
-     * muestra los superHeroes guardados
+     * guarda los superHeroes que tenga el usuario en la base de datos
      */
 
     fun fetchSuperHeroes(){
@@ -236,6 +235,31 @@ class HeroDeckViewModel:ViewModel(){
                 }
                 _superHeroDeckPlayer.value = superHeroes
             }
+    }
+
+
+    /**
+     * elimina el superHeroe
+     * @param idSuperHero id del superHeroe que queremos eliminar
+     * @param onSuccess que hacemos al eliminar el superHeroe
+     */
+    fun deleteSuperHero(idSuperHero: String, onSuccess:() -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+
+                firestore.collection("Notes").document(idSuperHero)
+                    .delete()
+                    .addOnSuccessListener {
+                        onSuccess()
+                        Log.d("ELIMINAR OK", "Se eliminó el superHeroe correctamente en Firestore")
+                    }
+                    .addOnFailureListener {
+                        Log.d("ERROR AL ELIMINAR", "ERROR al eliminar un superHeroe en Firestore")
+                    }
+            } catch (e:Exception) {
+                Log.d("ERROR BORRAR","Error al eliminar ${e.localizedMessage} ")
+            }
+        }
     }
 
 

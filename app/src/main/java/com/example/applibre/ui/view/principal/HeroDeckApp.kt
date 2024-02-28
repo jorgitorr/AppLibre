@@ -159,8 +159,6 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
                 )
 
             }
-            Text(text = character.name,
-                style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp))
         }
     }
 }

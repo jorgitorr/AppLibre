@@ -124,9 +124,13 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                 Spacer(modifier = Modifier.padding(15.dp))
                 Text(text = "GUARDAR",
                     Modifier
-                        .clickable { heroDeckViewModel.saveSuperHero {
-                            Toast.makeText(context,"SuperHeroe guardado",Toast.LENGTH_SHORT).show()
-                        } }
+                        .clickable {
+                            heroDeckViewModel.saveSuperHero {
+                                Toast
+                                    .makeText(context, "SuperHeroe guardado", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
                         .align(Alignment.CenterHorizontally),
                     color = Red,
                     style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
@@ -146,6 +150,12 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
  */
 @Composable
 fun Skills(superHero:SuperHero){
+    Row (verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center){
+        Text(text = superHero.name,
+            style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
+            color = Red)
+    }
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(modifier = Modifier.weight(1f)) {
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
