@@ -237,7 +237,7 @@ fun ExitGameDialog(openDialog: MutableState<Boolean>, navController: NavControll
     AlertDialog(
         onDismissRequest = { openDialog.value = false },
         title = { Text(text = "¿Deseas salir del juego?",
-            style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp)) },
+            style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp))},
         confirmButton = {
             Button(onClick = { navController.navigateUp() } ) {
                 Text(text = "ACEPTAR",

@@ -44,6 +44,8 @@ import coil.request.ImageRequest
 import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
+import com.example.applibre.ui.theme.Blue
+import com.example.applibre.ui.theme.Red
 import com.example.applibre.ui.theme.Shrikhand
 
 
@@ -73,10 +75,10 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                     ) {
                         Text(
                             text = buildAnnotatedString {
-                                withStyle(style = SpanStyle(color = Color.Blue)) {
+                                withStyle(style = SpanStyle(color = Blue)) {
                                     append("HERO ")
                                 }
-                                withStyle(style = SpanStyle(color = Color.Red)) {
+                                withStyle(style = SpanStyle(color = Red)) {
                                     append("DECK")
                                 }
                             },
@@ -126,7 +128,7 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                             Toast.makeText(context,"SuperHeroe guardado",Toast.LENGTH_SHORT).show()
                         } }
                         .align(Alignment.CenterHorizontally),
-                    color = Color.Red,
+                    color = Red,
                     style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
                     textAlign = TextAlign.Center)
             }
@@ -164,6 +166,8 @@ fun Skills(superHero:SuperHero){
                 )
             }
         }
+
+
     }
 
     Row(verticalAlignment = Alignment.CenterVertically) {

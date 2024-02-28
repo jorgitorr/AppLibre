@@ -31,9 +31,17 @@ import java.time.format.TextStyle
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun tipoPartida(navController: NavController){
+fun TipoPartida(navController: NavController){
+    Text(
+        text = "HERODECK", style = androidx.compose.ui.text.TextStyle(
+            fontFamily = Shrikhand,
+            fontSize = 25.sp
+        )
+    )
     Box(
-        modifier = Modifier.fillMaxSize().background(color = Azure),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Azure),
         contentAlignment = Alignment.Center,
     ) {
         Column(

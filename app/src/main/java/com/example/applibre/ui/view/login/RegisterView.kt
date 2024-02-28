@@ -1,5 +1,6 @@
 package com.example.applibre.ui.view.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,6 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.applibre.ui.model.LoginViewModel
+import com.example.applibre.ui.theme.Azure
+import com.example.applibre.ui.theme.Blue
+import com.example.applibre.ui.theme.Red
 import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.principal.ExitGameDialog
 import com.example.applibre.ui.view.components.BotonAceptarRegistro
@@ -47,17 +52,17 @@ fun Register(loginViewModel: LoginViewModel, navController: NavController){
             TopAppBar(
                 title = {
                     Box(
-                        modifier = Modifier
+                        modifier = Modifier.background(Azure)
                             .fillMaxSize()
                             .padding(10.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = buildAnnotatedString {
-                                withStyle(style = SpanStyle(color = Color.Blue)) {
+                                withStyle(style = SpanStyle(color = Blue)) {
                                     append("HERO ")
                                 }
-                                withStyle(style = SpanStyle(color = Color.Red)) {
+                                withStyle(style = SpanStyle(color = Red)) {
                                     append("DECK")
                                 }
                             },
@@ -69,19 +74,19 @@ fun Register(loginViewModel: LoginViewModel, navController: NavController){
         },
         bottomBar = {
             BottomAppBar(
-                containerColor = Color.White,
+                containerColor = Azure,
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
                     Icon(
-                        Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
+                        Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
                         modifier = Modifier.clickable { navController.navigateUp() })
                 }
             }
         },
     ) { innerPadding ->
         Column(
-            modifier = Modifier
+            modifier = Modifier.background(Azure)
                 .fillMaxSize()
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Center,

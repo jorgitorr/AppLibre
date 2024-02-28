@@ -1,5 +1,7 @@
 package com.example.applibre.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
@@ -9,14 +11,15 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.model.LoginViewModel
+import com.example.applibre.ui.view.TipoPartida
 import com.example.applibre.ui.view.principal.Favoritos
 import com.example.applibre.ui.view.principal.HeroDetailView
 import com.example.applibre.ui.view.principal.Screen
 import com.example.applibre.ui.view.login.Login
 import com.example.applibre.ui.view.login.Register
-import com.example.applibre.ui.view.tipoPartida
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavManager(heroDeckViewModel: HeroDeckViewModel, loginViewModel: LoginViewModel){
@@ -24,7 +27,7 @@ fun NavManager(heroDeckViewModel: HeroDeckViewModel, loginViewModel: LoginViewMo
 
     NavHost(navController = navController, startDestination = "TipoPartida") {
         composable("TipoPartida"){
-            tipoPartida(navController = navController)
+            TipoPartida(navController = navController)
         }
         composable("CartasJugador"){
             Screen(heroDeckViewModel = heroDeckViewModel, navController)

@@ -1,5 +1,6 @@
 package com.example.applibre.ui.view.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,7 +32,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.applibre.ui.model.LoginViewModel
+import com.example.applibre.ui.theme.Azure
+import com.example.applibre.ui.theme.Blue
+import com.example.applibre.ui.theme.Red
 import com.example.applibre.ui.theme.Shrikhand
+import com.example.applibre.ui.theme.White
 import com.example.applibre.ui.view.principal.ExitGameDialog
 import com.example.applibre.ui.view.components.Alert
 import com.example.applibre.ui.view.components.BotonAceptarLogin
@@ -49,15 +55,15 @@ fun Login(loginViewModel: LoginViewModel, navController: NavController){
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(10.dp),
+                            .padding(10.dp).background(Azure),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = buildAnnotatedString {
-                                withStyle(style = SpanStyle(color = Color.Blue)) {
+                                withStyle(style = SpanStyle(color = Blue)) {
                                     append("HERO ")
                                 }
-                                withStyle(style = SpanStyle(color = Color.Red)) {
+                                withStyle(style = SpanStyle(color = Red)) {
                                     append("DECK")
                                 }
                             },
@@ -69,11 +75,12 @@ fun Login(loginViewModel: LoginViewModel, navController: NavController){
         },
         bottomBar = {
             BottomAppBar(
-                containerColor = Color.White,
-                contentColor = MaterialTheme.colorScheme.primary,
+                containerColor = Azure,
+                contentColor = Red,
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
                         modifier = Modifier.clickable { navController.navigateUp() })
                 }
             }
@@ -82,7 +89,7 @@ fun Login(loginViewModel: LoginViewModel, navController: NavController){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding).background(Azure),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
