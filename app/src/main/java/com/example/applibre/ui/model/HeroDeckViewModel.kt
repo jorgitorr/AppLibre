@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.applibre.data.model.SuperHero
+import com.example.applibre.data.model.db.SuperHeroState
 import com.example.applibre.network.SuperHeroApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -57,7 +58,8 @@ class HeroDeckViewModel:ViewModel(){
     private val _superHeroesMarvel  = MutableStateFlow<List<SuperHero>>(emptyList())
     val superHeroDeckMarvel: StateFlow<List<SuperHero>> = _superHeroesMarvel
 
-    private val _superHeroDeckPlayer = MutableStateFlow<List<SuperHero>>(emptyList())
+    private val _superHeroDeckPlayer = MutableStateFlow<List<SuperHeroState>>(emptyList())
+    val superHeroDeckPlayer: StateFlow<List<SuperHeroState>> =  _superHeroDeckPlayer
 
     private val lista: MutableList<SuperHero> = mutableListOf()
     private var actualSuperHero by mutableStateOf(SuperHero())
@@ -77,6 +79,7 @@ class HeroDeckViewModel:ViewModel(){
         //getSuperHeroes()
         getSuperHeroesDC()
         getSuperHeroesMarvel()
+
     }
 
 
@@ -194,19 +197,19 @@ class HeroDeckViewModel:ViewModel(){
                     "id" to actualSuperHero.id,
                     "name" to actualSuperHero.name,
                     "powerstats" to actualSuperHero.powerStats,
-                    "image" to actualSuperHero.image,
+                    "image" to actualSuperHero.image.url,
                     "emailUser" to email.toString()
                 )
                 firestore.collection("SuperHeroes")
                     .add(newSuperHero)
                     .addOnSuccessListener {
                         onSuccess()
-                        Log.d("Error save","Se guardó la nota")
+                        Log.d("Error save","Se guardó el superHeroe")
                     }.addOnFailureListener{
                         Log.d("Save error","Error al guardar")
                     }
             }catch (e:Exception){
-                Log.d("Error al guardar nota","Error al guardar nota")
+                Log.d("Error al guardar nota","Error al guardar SuperHeroe")
             }
         }
     }
@@ -215,7 +218,7 @@ class HeroDeckViewModel:ViewModel(){
      * muestra los superHeroes guardados
      */
 
-    fun fetchSuperHeroes():StateFlow<List<SuperHero>>{
+    fun fetchSuperHeroes(){
         val email = auth.currentUser?.email
 
         firestore.collection("SuperHeroes")
@@ -224,16 +227,15 @@ class HeroDeckViewModel:ViewModel(){
                 if(error != null){
                     return@addSnapshotListener
                 }
-                val superHeroes = mutableListOf<SuperHero>()
+                val superHeroes = mutableListOf<SuperHeroState>()
                 if(querySnapshot != null){
                     for(superHero in querySnapshot){
-                        val cardSuperHero = superHero.toObject(SuperHero::class.java).copy(response = superHero.id)
+                        val cardSuperHero = superHero.toObject(SuperHeroState::class.java).copy()
                         superHeroes.add(cardSuperHero)
                     }
                 }
                 _superHeroDeckPlayer.value = superHeroes
             }
-        return _superHeroDeckPlayer
     }
 
 

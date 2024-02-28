@@ -2,6 +2,7 @@ package com.example.applibre.ui.view.principal
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -51,7 +52,11 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.applibre.R
 import com.example.applibre.data.model.SuperHero
+import com.example.applibre.data.model.db.SuperHeroState
 import com.example.applibre.ui.model.HeroDeckViewModel
+import com.example.applibre.ui.theme.Azure
+import com.example.applibre.ui.theme.Blue
+import com.example.applibre.ui.theme.Red
 import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.components.AlertFavorites
 
@@ -67,16 +72,15 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                 title = {
                     Box(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
+                            .fillMaxSize().background(color = Azure),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = buildAnnotatedString {
-                                withStyle(style = SpanStyle(color = Color.Blue)) {
+                                withStyle(style = SpanStyle(color = Blue)) {
                                     append("HERO ")
                                 }
-                                withStyle(style = SpanStyle(color = Color.Red)) {
+                                withStyle(style = SpanStyle(color = Red)) {
                                     append("DECK")
                                 }
                             },
@@ -88,7 +92,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
         },
         bottomBar = {
             BottomAppBar(
-                containerColor = Color.White,
+                containerColor = Azure,
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
@@ -101,7 +105,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(innerPadding),
+                .padding(innerPadding).background(color = Azure),
             verticalArrangement = Arrangement.Bottom
         ) {
 
@@ -155,13 +159,51 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
     }
 }
 
+
+@Composable
+fun SuperHeroCard(character: SuperHeroState, navController: NavController){
+    val urlImagen = character.image
+    Card(
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Column {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Log.d("Imagen",urlImagen)
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(urlImagen)
+                        .build(),
+                    contentDescription = "SuperHero",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onDoubleTap = {
+
+                                }
+                            )
+                        }
+                        .clickable {
+                            navController.navigate("HeroDetail/${character.id}")
+                        }
+                )
+
+            }
+            Text(text = character.name,
+                style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp))
+        }
+    }
+}
+
+
 /**
  * imprime la lista
  */
 @Composable
 fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewModel) {
-    val superHeroList by heroDeckViewModel.superHeroDeckDC.collectAsState()
-    val superHeroList2 by heroDeckViewModel.superHeroDeckMarvel.collectAsState()
+    val superHeroList by heroDeckViewModel.superHeroDeckDC.collectAsState()//coge las cartas con la lista de cartas DC
+    val superHeroList2 by heroDeckViewModel.superHeroDeckMarvel.collectAsState()//coge las cartas con la lista de cartas Marvel
     LazyColumn{
         items(superHeroList) { superHero ->
                 SuperHeroCard(superHero, navController)
@@ -173,14 +215,6 @@ fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewMo
 
 
 }
-
-
-/**
- * imprime la lista
- */
-
-
-
 
 /**
  * muestra por pantalla las cartas bocabajo 

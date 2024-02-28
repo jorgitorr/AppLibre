@@ -1,4 +1,6 @@
 package com.example.applibre.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Image(
-    val url:String = "")
+    var url:String = "")

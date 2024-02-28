@@ -4,11 +4,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +47,9 @@ import com.example.applibre.ui.view.components.PlayAudio
 fun Favoritos(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
     val openDialog = remember { mutableStateOf(false) }
     val context = LocalContext.current
+    LaunchedEffect(Unit){
+        heroDeckViewModel.fetchSuperHeroes()
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -75,7 +82,7 @@ fun Favoritos(heroDeckViewModel: HeroDeckViewModel, navController: NavController
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
                     Icon(
-                        Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
+                        Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
                         modifier = Modifier.clickable { navController.navigateUp() })
                 }
                 PlayAudio(context = context)
@@ -87,7 +94,7 @@ fun Favoritos(heroDeckViewModel: HeroDeckViewModel, navController: NavController
                 .padding(innerPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
-            //SuperHeroListSaved(navController, heroDeckViewModel)
+            SuperHeroListSaved(navController, heroDeckViewModel)
         }
     }
 
@@ -104,10 +111,10 @@ fun Favoritos(heroDeckViewModel: HeroDeckViewModel, navController: NavController
  */
 @Composable
 fun SuperHeroListSaved(navController: NavController, heroDeckViewModel:HeroDeckViewModel){
-    val superHeroListGuardada by heroDeckViewModel.fetchSuperHeroes().collectAsState()
+    val superHeroListGuardada by heroDeckViewModel.superHeroDeckPlayer.collectAsState()
     LazyRow{
         items(superHeroListGuardada){ superHero ->
-            SuperHeroCard(character = superHero, navController = navController)
+            SuperHeroCard(superHero, navController)
         }
     }
 }
