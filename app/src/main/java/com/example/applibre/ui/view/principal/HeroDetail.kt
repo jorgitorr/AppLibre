@@ -153,6 +153,7 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
 
 /**
  * iconos con el número de powerStats
+ * @param superHero superheroe
  */
 @Composable
 fun Skills(superHero:SuperHero){
@@ -160,12 +161,14 @@ fun Skills(superHero:SuperHero){
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
-        /*Text(
-            text = superHero.name,
-            style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
-            color = Red,
-            textAlign = TextAlign.Center
-        )*/
+        Box{
+            Text(
+                text = superHero.name,
+                style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
+                color = Red,
+                textAlign = TextAlign.Center
+            )
+        }
     }
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(modifier = Modifier.weight(1f)) {

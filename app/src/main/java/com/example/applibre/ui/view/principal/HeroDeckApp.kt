@@ -67,6 +67,11 @@ import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.components.AlertFavorites
 
 
+/**
+ * Pantalla principal
+ * @param heroDeckViewModel viewModel del superHeroe
+ * @param navController nav controller para ir a donde queramos
+ */
 @ExperimentalMaterial3Api
 @Composable
 fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
@@ -137,7 +142,9 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
 }
 
 /**
- * imprime la carta
+ * imprime la carta con una imagen del superHeroe
+ * @param character contiene el superHeroe
+ * @param navController navController para llevarnos al sitio donde queramos
  */
 @Composable
 fun SuperHeroCard(character: SuperHero, navController: NavController){
@@ -176,6 +183,10 @@ fun SuperHeroCard(character: SuperHero, navController: NavController){
 /**
  * sobreescribible que le pasa el SuperHeroState
  * ya que solo es un string de la imagen
+ * @param character le pasamos el superheroe que queremos imprimir
+ * en este caso le pasamos un State para poder pasarle lo que nos
+ * devuelve la base de datos
+ * @param navController navController para ir a donde queramos
  */
 @Composable
 fun SuperHeroCard(character: SuperHeroState, navController: NavController){
@@ -213,6 +224,12 @@ fun SuperHeroCard(character: SuperHeroState, navController: NavController){
     }
 }
 
+/**
+ * Imprime la lista
+ * @param navController para ir a donde queramos
+ * @param heroDeckViewModel contiene el viewmodel de esto sacamos la lista de superHeroDeck que
+ * contiene todos los superHeroes
+ */
 @Composable
 fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewModel) {
     val superHeroList by heroDeckViewModel.superHeroDeckDC.collectAsState()//coge las cartas con la lista de cartas DC
@@ -242,6 +259,13 @@ fun BackSideCards(){
     }
 }
 
+
+/**
+ * Nos muestra un mensaje si quiere salir de la pantalla
+ * @param openDialog Nos pasa una variable si quiere cerrar o no la pantalla
+ * @param navController nos lleva a donde queramos ir, para que al pulsar aceptar
+ * salga
+ */
 @Composable
 fun ExitGameDialog(openDialog: MutableState<Boolean>, navController: NavController) {
     AlertDialog(

@@ -31,7 +31,7 @@ class HeroDeckViewModel:ViewModel(){
      * @param firestore Inicializa firestore con una instancia del cliente de Firestore.
      * @param _superHero lista donde guarda el jugador sus superheroes
      * @param superHeroDeck es la variable visible que referencia a _superHero
-     * @param superHeroesDC contiene superHeroes de la lista de DC
+     * @param superHeroesDC contiene superHeroes de la lista de DC -> pero en este caso contiene todos
      * @param superHeroresMarvel contiene superHeroes de la lista de Marvel
      * @param lista guarda los superheroes en una lista para después pasarlo a la final
      * @param actualSuperHero superHeroe seleccionado actual
