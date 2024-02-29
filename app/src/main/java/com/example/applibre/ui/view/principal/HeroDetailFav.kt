@@ -126,7 +126,12 @@ fun HeroDetailViewFav(heroDeckViewModel: HeroDeckViewModel, navController: NavCo
     }
 }
 
-
+/**
+ * @param navController nav de a donde queramos ir
+ * @param superHero el superHero del que queremos obtener detalles
+ * Nos muestra los detalles de los superHeroes favoritos,
+ * es distinto a la de superHeroeDetail normal ya que muestra más información
+ */
 @Composable
 fun HeroDetailId(navController: NavController,
                  superHero: SuperHero){
@@ -170,11 +175,11 @@ fun HeroDetailId(navController: NavController,
             }
 
             item {
-                var color: Color
-                if(superHero.biography.publisher=="Marvel Comics"){
-                    color = Red
+                //nos cambia el color dependendiendo del tipo de biografia que tenga el superHero
+                val color: Color = if(superHero.biography.publisher=="Marvel Comics"){
+                    Red
                 }else{
-                    color = Blue
+                    Blue
                 }
                 Text(
                     text = superHero.biography.publisher,
@@ -194,10 +199,6 @@ fun HeroDetailId(navController: NavController,
                     color = Blue
                 )
             }
-
-
-
-
             /*item {
                 Text(
                     text = "ELIMINAR",

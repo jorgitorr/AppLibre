@@ -13,9 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,6 +21,13 @@ import androidx.navigation.NavController
 import com.example.applibre.ui.model.HeroDeckViewModel
 
 
+/**
+ * Permite buscar el superHeroe que queramos guardar
+ * @param heroDeckViewModel le pasamos el viewModel
+ * @param navController le pasamos el nav para ir a donde queramos
+ * active es una variable del viewModel para saber si estamos pulsando el icono de buscar para escribir y buscar el superheroe
+ * query es una variable del viewModel para saber lo que estamos buscando en este mismo momento
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Search(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
@@ -53,7 +57,7 @@ fun Search(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
             )
         }
     ) {
-        if(query.isNotEmpty()){
+        if(query.isNotEmpty()){ //si la busqueda no está vacía
             val filterName = superHero.filter { it.name.contains(query,ignoreCase = true) }
 
             filterName.forEach{

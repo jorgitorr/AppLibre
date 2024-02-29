@@ -168,6 +168,8 @@ class HeroDeckViewModel:ViewModel(){
 
     /**
      * devuelve el superHeroe actual
+     * @param id le pasamos el string del id del superHeroe que hemos pulsado
+     * esto nos permitirá obtener el superheroe por id
      */
     fun findById(id:String):SuperHero{
         for(l in lista){
@@ -180,6 +182,8 @@ class HeroDeckViewModel:ViewModel(){
 
     /**
      * función sin implementar que va a permitir poner a pelear a dos superheores
+     * @param superHero uno de los superHeroes que combate
+     * @param superHero2 el enemigo contra el que combate el superHero
      */
     fun combatir(superHero: SuperHero, superHero2:SuperHero){
         val powerStats1 = superHero.powerStats
@@ -193,6 +197,7 @@ class HeroDeckViewModel:ViewModel(){
 //COMIENZA LA PARTE ONLINE
 
     /**
+     * @param onSuccess en el caso de lograr guardar en superHeroe
      * Guarda el superHeroe en la base de datos
      */
     fun saveSuperHero(onSuccess:() -> Unit){

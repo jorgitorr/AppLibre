@@ -97,4 +97,6 @@ dependencies {
     testImplementation ("io.mockk:mockk:1.12.0") //implementacion de mock para pruebas unitarias
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation ("androidx.compose.material:material-icons-core:1.6.2")
+    implementation ("androidx.compose.material:material-icons-extended:1.6.2")
 }
