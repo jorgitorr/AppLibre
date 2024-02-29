@@ -17,6 +17,7 @@ import com.example.applibre.ui.view.principal.HeroDetailView
 import com.example.applibre.ui.view.principal.Screen
 import com.example.applibre.ui.view.login.Login
 import com.example.applibre.ui.view.login.Register
+import com.example.applibre.ui.view.principal.HeroDetailViewFav
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -40,6 +41,13 @@ fun NavManager(heroDeckViewModel: HeroDeckViewModel, loginViewModel: LoginViewMo
         )  ){
             val id = it.arguments?.getString("id") ?: 0
             HeroDetailView(heroDeckViewModel = heroDeckViewModel, navController = navController,
+                id.toString())
+        }
+        composable("HeroDetailFav/{id}", arguments = listOf(
+            navArgument("id") { type = NavType.StringType }//el fallo era en el tipo de NavType :_(
+        )  ){
+            val id = it.arguments?.getString("id") ?: 0
+            HeroDetailViewFav(heroDeckViewModel = heroDeckViewModel, navController = navController,
                 id.toString())
         }
         composable("Registro"){

@@ -1,20 +1,18 @@
 package com.example.applibre.ui.view.principal
 
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -42,13 +39,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.applibre.R
-import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.Blue
 import com.example.applibre.ui.theme.Red
 import com.example.applibre.ui.theme.Shrikhand
-
 
 /**
  * muestra el detalle de la carta
@@ -60,7 +54,7 @@ import com.example.applibre.ui.theme.Shrikhand
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavController, idHero: String) {
+fun HeroDetailViewFav(heroDeckViewModel: HeroDeckViewModel, navController: NavController, idHero: String) {
 
     val openDialog = remember { mutableStateOf(false) }
 
@@ -97,7 +91,8 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
                         modifier = Modifier.clickable { navController.navigateUp() })
                 }
             }
@@ -125,19 +120,19 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                 }
                 Skills(superHero = superHero)
                 Spacer(modifier = Modifier.padding(15.dp))
-                Text(text = "GUARDAR",
+                /*Text(text = "ELIMINAR",
                     Modifier
                         .clickable {
-                            heroDeckViewModel.saveSuperHero {
+                            heroDeckViewModel.deleteSuperHero(idHero) {
                                 Toast
-                                    .makeText(context, "SuperHeroe guardado", Toast.LENGTH_SHORT)
+                                    .makeText(context, "SuperHeroe eliminado", Toast.LENGTH_SHORT)
                                     .show()
                             }
                         }
                         .align(Alignment.CenterHorizontally),
                     color = Red,
                     style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
-                    textAlign = TextAlign.Center)
+                    textAlign = TextAlign.Center)*/
 
             }
 
@@ -149,75 +144,3 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
         ExitGameDialog(openDialog = openDialog, navController)
     }
 }
-
-
-/**
- * iconos con el número de powerStats
- */
-@Composable
-fun Skills(superHero:SuperHero){
-    Box(
-        modifier = Modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center
-    ) {
-        /*Text(
-            text = superHero.name,
-            style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
-            color = Red,
-            textAlign = TextAlign.Center
-        )*/
-    }
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(modifier = Modifier.weight(1f)) {
-            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.strength),
-                    contentDescription = "Icono de fuerza",
-                    modifier = Modifier.size(50.dp)
-                )
-            }
-        }
-
-        Box(modifier = Modifier.weight(1f)) {
-            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.durability),
-                    contentDescription = "Icono de defensa",
-                    modifier = Modifier.size(50.dp)
-                )
-            }
-        }
-
-
-    }
-
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 10.dp)
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = superHero.powerStats.strength)
-            }
-        }
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 10.dp)
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = superHero.powerStats.durability)
-            }
-        }
-    }
-}
-
-
-

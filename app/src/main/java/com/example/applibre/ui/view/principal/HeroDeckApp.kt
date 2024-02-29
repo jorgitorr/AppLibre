@@ -192,7 +192,7 @@ fun SuperHeroCard(character: SuperHeroState, navController: NavController){
                             )
                         }
                         .clickable {
-                            navController.navigate("HeroDetail/${character.id}")
+                            navController.navigate("HeroDetailFav/${character.id}")
                         }
                 )
 

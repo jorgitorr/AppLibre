@@ -210,7 +210,7 @@ class HeroDeckViewModel:ViewModel(){
                         Log.d("Save error","Error al guardar")
                     }
             }catch (e:Exception){
-                Log.d("Error al guardar nota","Error al guardar SuperHeroe")
+                Log.d("Error al guardar superHeroe","Error al guardar SuperHeroe")
             }
         }
     }
@@ -249,7 +249,8 @@ class HeroDeckViewModel:ViewModel(){
         viewModelScope.launch(Dispatchers.IO) {
             try {
 
-                firestore.collection("Notes").document(idSuperHero)
+                firestore.collection("SuperHeroes")
+                    .document(idSuperHero)
                     .delete()
                     .addOnSuccessListener {
                         onSuccess()
