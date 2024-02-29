@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.model.LoginViewModel
 import com.example.applibre.ui.view.TipoPartida
+import com.example.applibre.ui.view.components.Search
 import com.example.applibre.ui.view.principal.Favoritos
 import com.example.applibre.ui.view.principal.HeroDetailView
 import com.example.applibre.ui.view.principal.Screen
@@ -55,6 +56,9 @@ fun NavManager(heroDeckViewModel: HeroDeckViewModel, loginViewModel: LoginViewMo
         }
         composable("Favoritos"){
             Favoritos(heroDeckViewModel, navController)
+        }
+        composable("Search"){
+            Search(heroDeckViewModel, navController)
         }
 
     }

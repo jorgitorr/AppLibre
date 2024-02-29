@@ -47,7 +47,9 @@ class HeroDeckViewModel:ViewModel(){
      *     345->Fire Man, 213->Death-pool, 670->Toad, 538->Ra's Al Ghu, 550->Red Skull
      *     720 -> Wonder Woman, 491 -> NigthWing, 165 -> Catwoman, 194 -> Cyborg, 38 -> Aquaman,
      *     432 -> Martian manhunter, 132 -> Booster Gold, 367 -> John Constantine
-     *     505 -> Oracle, 268 -> Forge
+     *     505 -> Oracle, 268 -> Forge, 732 -> Iron Man, 717 -> wolverine, 332 -> Hulk
+     *     598 -> Silver Surfer, 456 -> Mister Fantastic, 216 -> DeathStroke
+     *     724 -> X-Man, 149 -> Captain America
      * */
 
     private val auth: FirebaseAuth by lazy { Firebase.auth }
@@ -66,13 +68,15 @@ class HeroDeckViewModel:ViewModel(){
     private var actualSuperHero by mutableStateOf(SuperHero())
         private set;
 
-    private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505)
+    private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505,
+        216)
     private val listaIdMarvel = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
-        213, 670, 268)
+        213, 670, 268, 732, 724, 149)
 
 
     private val listaId = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
-        213, 670, 70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505, 268)
+        213, 670, 70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505, 268, 732,
+        332, 598, 216, 724, 149)
 
     val query = MutableStateFlow("")
 

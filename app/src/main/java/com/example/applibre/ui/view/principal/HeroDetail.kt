@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
@@ -97,7 +98,8 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 IconButton(onClick = { openDialog.value = true }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Ir hacia atrás",
                         modifier = Modifier.clickable { navController.navigateUp() })
                 }
             }
@@ -162,12 +164,12 @@ fun Skills(superHero:SuperHero){
         contentAlignment = Alignment.Center
     ) {
         Box{
-            Text(
+            /*Text(
                 text = superHero.name,
                 style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
                 color = Red,
                 textAlign = TextAlign.Center
-            )
+            )*/
         }
     }
     Row(verticalAlignment = Alignment.CenterVertically) {

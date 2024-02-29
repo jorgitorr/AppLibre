@@ -61,7 +61,7 @@ import com.example.applibre.ui.theme.Blue
 import com.example.applibre.ui.theme.Red
 import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.components.AlertFavorites
-import com.example.applibre.ui.view.components.Buscar
+import com.example.applibre.ui.view.components.Search
 
 
 /**
@@ -98,14 +98,14 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                         )
                         //tengo que hacerlo
                         Box(modifier = Modifier.padding(start = 300.dp)){
-                            IconButton(onClick = { isSearching = !isSearching }) {
+                            IconButton(onClick = { navController.navigate("Search") }) {
                                 Icon(Icons.Default.Search, contentDescription = "Buscar",
                                     tint = Blue)
                             }
                         }
 
                         if (isSearching) {
-                            Buscar(heroDeckViewModel, navController)
+                            Search(heroDeckViewModel, navController)
                         }
 
                     }

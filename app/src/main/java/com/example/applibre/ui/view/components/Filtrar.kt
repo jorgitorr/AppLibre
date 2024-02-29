@@ -26,8 +26,7 @@ import com.example.applibre.ui.model.HeroDeckViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Buscar(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
-    var searchText by remember { mutableStateOf("") }
+fun Search(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
     val active by heroDeckViewModel.active.collectAsState()
     val query by heroDeckViewModel.query.collectAsState()
 
@@ -63,7 +62,7 @@ fun Buscar(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .padding(bottom = 10.dp, start = 10.dp)
-                        .clickable { navController.navigate("HeroDetail/{${it.id}}") }
+                        .clickable { navController.navigate("HeroDetail/${it.id}") }
                 )
             }
         }

@@ -1,15 +1,18 @@
 package com.example.applibre.ui.view.principal
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
@@ -108,37 +111,13 @@ fun HeroDetailViewFav(heroDeckViewModel: HeroDeckViewModel, navController: NavCo
         ) {
             val superHero = heroDeckViewModel.findById(idHero)//este método devuelve el superHeroe con ese id
 
-            Column {
-                Box(modifier = Modifier.size(450.dp)) {
-                    SubcomposeAsyncImage(
-                        model = ImageRequest.Builder(context = LocalContext.current)
-                            .data(superHero.image.url)
-                            .build(),
-                        contentDescription = "SuperHero",
-                        contentScale = ContentScale.Crop,
-                        loading = {CircularProgressIndicator()},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { navController.navigateUp() }
-                    )
-                }
-                Skills(superHero = superHero)
-                Spacer(modifier = Modifier.padding(15.dp))
-                /*Text(text = "ELIMINAR",
-                    Modifier
-                        .clickable {
-                            heroDeckViewModel.deleteSuperHero(idHero) {
-                                Toast
-                                    .makeText(context, "SuperHeroe eliminado", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-                        }
-                        .align(Alignment.CenterHorizontally),
-                    color = Red,
-                    style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
-                    textAlign = TextAlign.Center)*/
-
-            }
+            HeroDetailId(
+                heroDeckViewModel = heroDeckViewModel,
+                navController = navController,
+                superHero = superHero,
+                context = context,
+                idHero = idHero
+            )
 
 
         }
@@ -147,5 +126,81 @@ fun HeroDetailViewFav(heroDeckViewModel: HeroDeckViewModel, navController: NavCo
     if (openDialog.value) {
         ExitGameDialog(openDialog = openDialog, navController)
     }
+}
+
+
+@Composable
+fun HeroDetailId(heroDeckViewModel: HeroDeckViewModel, navController: NavController, superHero: SuperHero, context: Context,
+               idHero: String){
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            item {
+                Box(
+                    modifier = Modifier
+                        .size(450.dp)
+                        .clickable { navController.navigateUp() }
+                ) {
+                    SubcomposeAsyncImage(
+                        model = ImageRequest.Builder(context = LocalContext.current)
+                            .data(superHero.image.url)
+                            .build(),
+                        contentDescription = "SuperHero",
+                        contentScale = ContentScale.Crop,
+                        loading = { CircularProgressIndicator() },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+
+            item {
+                Text(
+                    text = superHero.name + "\n("+superHero.biography.fullName+")",
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                    color = Blue
+                )
+            }
+
+            item {
+                Text(
+                    text = superHero.biography.publisher,
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                    color = Blue
+                )
+            }
+
+            item {
+                Skills(superHero = superHero)
+            }
+
+            item {
+                Spacer(modifier = Modifier.padding(15.dp))
+            }
+
+
+            item {
+                Text(
+                    text = "ELIMINAR",
+                    color = Red,
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            heroDeckViewModel.deleteSuperHero(idHero) {
+                                Toast
+                                    .makeText(context, "SuperHeroe eliminado", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                )
+            }
+        }
 }
 
