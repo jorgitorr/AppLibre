@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
 import com.example.applibre.ui.theme.Blue
 import com.example.applibre.ui.theme.Red
@@ -144,3 +145,4 @@ fun HeroDetailViewFav(heroDeckViewModel: HeroDeckViewModel, navController: NavCo
         ExitGameDialog(openDialog = openDialog, navController)
     }
 }
+

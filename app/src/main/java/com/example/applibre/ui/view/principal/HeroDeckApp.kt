@@ -8,6 +8,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
@@ -91,6 +93,13 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                             },
                             style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp)
                         )
+                        //tengo que hacerlo
+                        Box(modifier = Modifier.padding(start = 300.dp)){
+                            IconButton(onClick = {  }) {
+                                Icon(Icons.Default.Search, contentDescription = "Buscar",
+                                    tint = Blue)
+                            }
+                        }
                     }
                 }
             )
@@ -105,6 +114,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                 }
                 //PlayAudio(context = context)//Audio del juego
                 AlertFavorites(navController = navController)
+
             }
         },
     ) { innerPadding ->
