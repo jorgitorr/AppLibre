@@ -1,10 +1,14 @@
 package com.example.applibre.data.model.db
 
-import com.example.applibre.data.model.Biography
-import com.example.applibre.data.model.Image
 import com.example.applibre.data.model.PowerStats
 import com.google.gson.annotations.SerializedName
 
+
+/**
+ * SuperHeroe que se guarda en la base de datos
+ * @param emailUser email del usuario
+ * @param id id de la carta
+ */
 data class SuperHeroState(
     val emailUser:String = "",
     val id:String = "",
