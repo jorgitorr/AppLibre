@@ -43,6 +43,11 @@ import com.example.applibre.ui.view.components.IntroducirEmail
 import com.example.applibre.ui.view.components.IntroducirUsuario
 import com.example.applibre.ui.view.components.TengoCuenta
 
+/**
+ * Registro de la aplicacion
+ * @param loginViewModel viewmodel del login
+ * @param navController nav que nos permite viajar a la pantalla que queramos
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Register(loginViewModel: LoginViewModel, navController: NavController){

@@ -47,6 +47,11 @@ import com.example.applibre.ui.theme.Red
 import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.components.PlayAudio
 
+/**
+ * Pantalla de favoritos que contiene las cartas con los superheroes favoritos
+ * @param heroDeckViewModel viewmodel del hero deck
+ * @param navController nav que nos permite viajar a la pantalla que queramos
+ */
 @ExperimentalMaterial3Api
 @Composable
 fun Favoritos(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
@@ -112,6 +117,8 @@ fun Favoritos(heroDeckViewModel: HeroDeckViewModel, navController: NavController
 
 /**
  * imprime la lista de superheroes de la bdd
+ * @param navController nav que nos permite viajar a la panalla que queramos
+ * @param heroDeckViewModel viewmodel del herodeck
  */
 @Composable
 fun SuperHeroListSaved(navController: NavController, heroDeckViewModel:HeroDeckViewModel){

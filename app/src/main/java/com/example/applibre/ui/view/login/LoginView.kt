@@ -46,6 +46,8 @@ import com.example.applibre.ui.view.components.NoTengoCuenta
 
 /**
  * Login del usuario
+ * @param loginViewModel login del viewmodel
+ * @param navController nav controller que nos permite viajar a la pantalla que queramos
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
