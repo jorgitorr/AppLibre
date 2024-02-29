@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -62,6 +63,9 @@ import com.example.applibre.ui.theme.Shrikhand
 fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavController, idHero: String) {
 
     val openDialog = remember { mutableStateOf(false) }
+
+    val isFavorite = remember { mutableStateOf(false) }
+
     val context = LocalContext.current
     Scaffold(
         topBar = {
@@ -135,7 +139,10 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                     color = Red,
                     style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
                     textAlign = TextAlign.Center)
+
             }
+
+
         }
     }
 
@@ -150,11 +157,16 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
  */
 @Composable
 fun Skills(superHero:SuperHero){
-    Row (verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center){
-        Text(text = superHero.name,
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        /*Text(
+            text = superHero.name,
             style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
-            color = Red)
+            color = Red,
+            textAlign = TextAlign.Center
+        )*/
     }
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(modifier = Modifier.weight(1f)) {

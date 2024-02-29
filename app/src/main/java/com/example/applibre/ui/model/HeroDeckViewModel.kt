@@ -65,9 +65,9 @@ class HeroDeckViewModel:ViewModel(){
     private var actualSuperHero by mutableStateOf(SuperHero())
         private set;
 
-    private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367 )
+    /*private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367 )
     private val listaIdMarvel = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
-        213, 670)
+        213, 670)*/
 
 
     private val listaId = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
@@ -75,9 +75,9 @@ class HeroDeckViewModel:ViewModel(){
 
 
     init {
-        //getSuperHeroes()
-        getSuperHeroesDC()
-        getSuperHeroesMarvel()
+        getSuperHeroes()
+        /*getSuperHeroesDC()
+        getSuperHeroesMarvel()*/
 
     }
 
@@ -88,7 +88,7 @@ class HeroDeckViewModel:ViewModel(){
     fun getSuperHeroes(){
         //iniciamos una corrutina
         lista.clear()
-        for (i in 0..3) {
+        for (i in 0..listaId.size) {
             viewModelScope.launch {
                 try {
                     //en vez de pasarle un número aleatorio recorro la lista con los id ya combrobados
@@ -113,8 +113,10 @@ class HeroDeckViewModel:ViewModel(){
 
     /**
      * obtiene superHeroes de DC
+     * son métodos antiguos para intentar separar las listas por lazy row
+     * pero no me funcionaba
      */
-    fun getSuperHeroesDC(){
+    /*fun getSuperHeroesDC(){
         //iniciamos una corrutina
         lista.clear()
         for (i in listaIdDc.indices) {
@@ -155,7 +157,7 @@ class HeroDeckViewModel:ViewModel(){
                 }
             }
         }
-    }
+    }*/
 
 
     /**
@@ -260,6 +262,14 @@ class HeroDeckViewModel:ViewModel(){
                 Log.d("ERROR BORRAR","Error al eliminar ${e.localizedMessage} ")
             }
         }
+    }
+
+
+    /**
+     * filtra por el publisher
+     */
+    fun filtrarXPublisher(publisher:String){
+        _superHeroesDC.value = _superHeroesDC.value.filter { it.biography.publisher == publisher }
     }
 
 

@@ -203,11 +203,24 @@ fun SuperHeroCard(character: SuperHeroState, navController: NavController){
     }
 }
 
+@Composable
+fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewModel) {
+    val superHeroList by heroDeckViewModel.superHeroDeckDC.collectAsState()//coge las cartas con la lista de cartas DC
+    val superHeroList2 by heroDeckViewModel.superHeroDeckMarvel.collectAsState()//coge las cartas con la lista de cartas Marvel
+    LazyVerticalGrid(columns =  GridCells.Adaptive(minSize = 128.dp)){
+        items(superHeroList) { superHero ->
+            SuperHeroCard(superHero, navController)
+        }
+    }
+
+
+}
+
 
 /**
  * imprime la lista
  */
-@Composable
+/*@Composable
 fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewModel) {
     val superHeroList by heroDeckViewModel.superHeroDeckDC.collectAsState()//coge las cartas con la lista de cartas DC
     val superHeroList2 by heroDeckViewModel.superHeroDeckMarvel.collectAsState()//coge las cartas con la lista de cartas Marvel
@@ -219,9 +232,7 @@ fun SuperHeroList(navController: NavController, heroDeckViewModel:HeroDeckViewMo
             SuperHeroCard(superHero, navController)
         }
     }
-
-
-}
+}*/
 
 /**
  * muestra por pantalla las cartas bocabajo
