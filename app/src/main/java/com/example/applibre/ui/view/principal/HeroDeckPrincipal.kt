@@ -8,20 +8,16 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
@@ -40,9 +36,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -65,6 +61,7 @@ import com.example.applibre.ui.theme.Blue
 import com.example.applibre.ui.theme.Red
 import com.example.applibre.ui.theme.Shrikhand
 import com.example.applibre.ui.view.components.AlertFavorites
+import com.example.applibre.ui.view.components.Buscar
 
 
 /**
@@ -76,6 +73,7 @@ import com.example.applibre.ui.view.components.AlertFavorites
 @Composable
 fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
     val openDialog = remember { mutableStateOf(false) }
+    var isSearching by remember { mutableStateOf(false) }
     val context = LocalContext.current
     Scaffold(
         topBar = {
@@ -100,11 +98,16 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                         )
                         //tengo que hacerlo
                         Box(modifier = Modifier.padding(start = 300.dp)){
-                            IconButton(onClick = {  }) {
+                            IconButton(onClick = { isSearching = !isSearching }) {
                                 Icon(Icons.Default.Search, contentDescription = "Buscar",
                                     tint = Blue)
                             }
                         }
+
+                        if (isSearching) {
+                            Buscar(heroDeckViewModel, navController)
+                        }
+
                     }
                 }
             )
@@ -129,9 +132,7 @@ fun Screen(heroDeckViewModel: HeroDeckViewModel, navController: NavController){
                 .background(color = Azure),
             verticalArrangement = Arrangement.Bottom
         ) {
-
             SuperHeroList(navController, heroDeckViewModel)
-
         }
     }
 

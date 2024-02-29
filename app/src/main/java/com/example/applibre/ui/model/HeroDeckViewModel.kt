@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.applibre.data.model.SuperHero
@@ -38,7 +39,8 @@ class HeroDeckViewModel:ViewModel(){
      * @param listaId contiene id de todos los superheroes que podemos tener entre las cartas
      * @param listaIdDc contiene id de superheroes de DC
      * @param listaMarvel contiene id de superheroes de Marvel
-     * @param showAlert te muestra o no la pantalla de salir
+     * @param query contiene el texto de busqueda
+     * @param active si está activo el barra de busqueda
      * contiene los id de los superheroes y estos son los que contiene:
      *     ID -> nombre superHeroe
      *     70->batman, 655->superman, 485->naruto, 215->Deathlok, 201->daredevil, 435->master chief,
@@ -73,6 +75,10 @@ class HeroDeckViewModel:ViewModel(){
 
     private val listaId = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
         213, 670, 70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505, 268)
+
+    val query = MutableStateFlow("")
+
+    val active = MutableStateFlow(false)
 
 
     init {
@@ -262,13 +268,25 @@ class HeroDeckViewModel:ViewModel(){
         }
     }
 
+    /**
+     * Actualiza la consulta de búsqueda actual.
+     *
+     * @param newQuery La nueva cadena de texto de consulta para la búsqueda.
+     */
+    fun setQuery(newQuery: String) {
+        query.value = newQuery
+    }
 
     /**
-     * filtra por el publisher
+     * Establece si la búsqueda está activa o no.
+     *
+     * @param newActive El nuevo estado booleano que indica si la búsqueda está activa.
      */
-    fun filtrarXPublisher(publisher:String){
-        _superHeroesDC.value = _superHeroesDC.value.filter { it.biography.publisher == publisher }
+    fun setActive(newActive: Boolean) {
+        active.value = newActive
     }
+
+
 
 
 }
