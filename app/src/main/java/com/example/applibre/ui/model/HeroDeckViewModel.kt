@@ -55,8 +55,8 @@ class HeroDeckViewModel:ViewModel(){
     private val _superHeroesDC  = MutableStateFlow<List<SuperHero>>(emptyList())
     val superHeroDeckDC: StateFlow<List<SuperHero>> = _superHeroesDC
 
-    private val _superHeroesMarvel  = MutableStateFlow<List<SuperHero>>(emptyList())
-    val superHeroDeckMarvel: StateFlow<List<SuperHero>> = _superHeroesMarvel
+    /*private val _superHeroesMarvel  = MutableStateFlow<List<SuperHero>>(emptyList())
+    val superHeroDeckMarvel: StateFlow<List<SuperHero>> = _superHeroesMarvel*/
 
     private val _superHeroDeckPlayer = MutableStateFlow<List<SuperHeroState>>(emptyList())
     val superHeroDeckPlayer: StateFlow<List<SuperHeroState>> =  _superHeroDeckPlayer
@@ -65,9 +65,9 @@ class HeroDeckViewModel:ViewModel(){
     private var actualSuperHero by mutableStateOf(SuperHero())
         private set;
 
-    /*private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367 )
+    private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367 )
     private val listaIdMarvel = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
-        213, 670)*/
+        213, 670)
 
 
     private val listaId = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
@@ -83,9 +83,9 @@ class HeroDeckViewModel:ViewModel(){
 
 
     /**
-     * obtiene 4 cartas para el jugador que las selecciona aleatoriamente
+     * obtiene todas las cartas guardadas en la lista
      */
-    fun getSuperHeroes(){
+    private fun getSuperHeroes(){
         //iniciamos una corrutina
         lista.clear()
         for (i in 0..listaId.size) {
@@ -116,7 +116,7 @@ class HeroDeckViewModel:ViewModel(){
      * son métodos antiguos para intentar separar las listas por lazy row
      * pero no me funcionaba
      */
-    /*fun getSuperHeroesDC(){
+    fun getSuperHeroesDC(){
         //iniciamos una corrutina
         lista.clear()
         for (i in listaIdDc.indices) {
@@ -157,7 +157,7 @@ class HeroDeckViewModel:ViewModel(){
                 }
             }
         }
-    }*/
+    }
 
 
     /**
