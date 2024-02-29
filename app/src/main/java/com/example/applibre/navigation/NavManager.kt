@@ -20,7 +20,12 @@ import com.example.applibre.ui.view.login.Login
 import com.example.applibre.ui.view.login.Register
 import com.example.applibre.ui.view.principal.HeroDetailViewFav
 
-
+/**
+ * Nav Manager contiene todas las posibles pantallas que vamos a usar en la aplicacion
+ * con ello podemos movernos de una a otra pantalla
+ * @param heroDeckViewModel es el viewmodel del superheroe
+ * @param loginViewModel login viewmodel
+ */
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

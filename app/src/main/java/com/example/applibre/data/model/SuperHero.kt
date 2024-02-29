@@ -2,6 +2,19 @@ package com.example.applibre.data.model
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Clase que contiene al superheroe
+ * @param emailUser email del usuario
+ * @param response respuesta
+ * @param id id del superheroe
+ * @param name nombre del superheroe
+ * @param powerStats estadísticas del superheroe
+ * @param biography biografia del superheroe
+ * @param appearance apariencia del superheroe
+ * @param work trabajo del superheroe
+ * @param connections conexiones del superheroe
+ * @param image imagen del superheroe, que contiene la url de la imagen
+ */
 data class SuperHero (
     val emailUser:String = "",
     val response:String = "",

@@ -44,6 +44,9 @@ import com.example.applibre.ui.view.components.IntroducirContrasenia
 import com.example.applibre.ui.view.components.IntroducirEmail
 import com.example.applibre.ui.view.components.NoTengoCuenta
 
+/**
+ * Login del usuario
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Login(loginViewModel: LoginViewModel, navController: NavController){

@@ -19,6 +19,7 @@ import com.example.applibre.R
 
 /**
  * Permite poner una canción de batman
+ * (No lo quiero implementar todavía ya que queda un poco feo y quiero ponerlo bien)
  */
 @Composable
 fun PlayAudio(context: Context){
