@@ -127,6 +127,7 @@ fun HeroDetailView(heroDeckViewModel: HeroDeckViewModel, navController: NavContr
                 }
                 Skills(superHero = superHero)
                 Spacer(modifier = Modifier.padding(15.dp))
+
                 Text(text = "GUARDAR",
                     Modifier
                         .clickable {

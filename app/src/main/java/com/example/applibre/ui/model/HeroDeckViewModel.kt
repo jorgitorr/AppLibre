@@ -89,9 +89,6 @@ class HeroDeckViewModel:ViewModel(){
 
     init {
         getSuperHeroes()
-        /*getSuperHeroesDC()
-        getSuperHeroesMarvel()*/
-
     }
 
 
@@ -200,7 +197,6 @@ class HeroDeckViewModel:ViewModel(){
      */
     fun saveSuperHero(onSuccess:() -> Unit){
         val email = auth.currentUser?.email
-
         viewModelScope.launch (Dispatchers.IO){
             try {
                 val newSuperHero = hashMapOf(
