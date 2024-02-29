@@ -130,9 +130,8 @@ fun HeroDetailViewFav(heroDeckViewModel: HeroDeckViewModel, navController: NavCo
 
 
 @Composable
-fun HeroDetailId(heroDeckViewModel: HeroDeckViewModel, navController: NavController, superHero: SuperHero, context: Context,
-               idHero: String){
-
+fun HeroDetailId(heroDeckViewModel: HeroDeckViewModel, navController: NavController,
+                 superHero: SuperHero, context: Context, idHero: String){
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)

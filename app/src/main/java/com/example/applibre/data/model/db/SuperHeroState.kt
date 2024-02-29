@@ -1,5 +1,6 @@
 package com.example.applibre.data.model.db
 
+import com.example.applibre.data.model.Biography
 import com.example.applibre.data.model.Image
 import com.example.applibre.data.model.PowerStats
 import com.google.gson.annotations.SerializedName
@@ -10,5 +11,6 @@ data class SuperHeroState(
     val name: String = "",
     val image:String = "",
     @SerializedName("powerstats")
-    val powerStats: PowerStats = PowerStats()
+    val powerStats: PowerStats = PowerStats(),
+    val idDoc: String = ""
 )
