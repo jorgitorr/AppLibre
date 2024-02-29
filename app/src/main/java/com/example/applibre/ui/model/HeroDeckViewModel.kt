@@ -47,6 +47,7 @@ class HeroDeckViewModel:ViewModel(){
      *     345->Fire Man, 213->Death-pool, 670->Toad, 538->Ra's Al Ghu, 550->Red Skull
      *     720 -> Wonder Woman, 491 -> NigthWing, 165 -> Catwoman, 194 -> Cyborg, 38 -> Aquaman,
      *     432 -> Martian manhunter, 132 -> Booster Gold, 367 -> John Constantine
+     *     505 -> Oracle, 268 -> Forge
      * */
 
     private val auth: FirebaseAuth by lazy { Firebase.auth }
@@ -65,13 +66,13 @@ class HeroDeckViewModel:ViewModel(){
     private var actualSuperHero by mutableStateOf(SuperHero())
         private set;
 
-    private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367 )
+    private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505)
     private val listaIdMarvel = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
-        213, 670)
+        213, 670, 268)
 
 
     private val listaId = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
-        213, 670, 70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367 )
+        213, 670, 70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505, 268)
 
 
     init {
@@ -88,14 +89,10 @@ class HeroDeckViewModel:ViewModel(){
     private fun getSuperHeroes(){
         //iniciamos una corrutina
         lista.clear()
-        for (i in 0..listaId.size) {
+        for (i in 0..listaId.size-1) {
             viewModelScope.launch {
                 try {
-                    //en vez de pasarle un número aleatorio recorro la lista con los id ya combrobados
-                    //que tienen imagenes y demás
-                    val numAleatorio = Random.nextInt(0, listaId.size-1)
-                    val idAleatorio = listaId[numAleatorio].toString()
-                    val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(idAleatorio)
+                    val superHeroId = SuperHeroApi.retrofitService.getSuperHeroById(listaId[i].toString())
 
                     val gson = Gson()
                     val superheroResponse = gson.fromJson(superHeroId, SuperHero::class.java)

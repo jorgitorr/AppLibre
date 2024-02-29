@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.applibre.data.model.SuperHero
 import com.example.applibre.ui.model.HeroDeckViewModel
@@ -108,12 +110,13 @@ fun HeroDetailViewFav(heroDeckViewModel: HeroDeckViewModel, navController: NavCo
 
             Column {
                 Box(modifier = Modifier.size(450.dp)) {
-                    AsyncImage(
+                    SubcomposeAsyncImage(
                         model = ImageRequest.Builder(context = LocalContext.current)
                             .data(superHero.image.url)
                             .build(),
                         contentDescription = "SuperHero",
                         contentScale = ContentScale.Crop,
+                        loading = {CircularProgressIndicator()},
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { navController.navigateUp() }
