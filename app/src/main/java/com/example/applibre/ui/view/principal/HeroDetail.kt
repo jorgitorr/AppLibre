@@ -163,14 +163,7 @@ fun Skills(superHero:SuperHero){
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
-        Box{
-            /*Text(
-                text = superHero.name,
-                style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
-                color = Red,
-                textAlign = TextAlign.Center
-            )*/
-        }
+
     }
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(modifier = Modifier.weight(1f)) {
@@ -206,7 +199,9 @@ fun Skills(superHero:SuperHero){
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = superHero.powerStats.strength)
+                Text(text = superHero.powerStats.strength,
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
+                    color = Blue)
             }
         }
         Box(
@@ -218,11 +213,16 @@ fun Skills(superHero:SuperHero){
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = superHero.powerStats.durability)
+                Text(text = superHero.powerStats.durability,
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
+                    color = Blue)
             }
         }
     }
 }
+
+
+
 
 
 

@@ -3,6 +3,7 @@ package com.example.applibre.data.model
 import com.google.gson.annotations.SerializedName
 
 data class SuperHero (
+    val emailUser:String = "",
     val response:String = "",
     val id:String = "",
     val name:String = "",

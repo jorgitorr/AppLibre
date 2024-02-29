@@ -26,6 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -112,11 +113,8 @@ fun HeroDetailViewFav(heroDeckViewModel: HeroDeckViewModel, navController: NavCo
             val superHero = heroDeckViewModel.findById(idHero)//este método devuelve el superHeroe con ese id
 
             HeroDetailId(
-                heroDeckViewModel = heroDeckViewModel,
                 navController = navController,
-                superHero = superHero,
-                context = context,
-                idHero = idHero
+                superHero = superHero
             )
 
 
@@ -130,12 +128,14 @@ fun HeroDetailViewFav(heroDeckViewModel: HeroDeckViewModel, navController: NavCo
 
 
 @Composable
-fun HeroDetailId(heroDeckViewModel: HeroDeckViewModel, navController: NavController,
-                 superHero: SuperHero, context: Context, idHero: String){
+fun HeroDetailId(navController: NavController,
+                 superHero: SuperHero){
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
         ) {
+
+
             item {
                 Box(
                     modifier = Modifier
@@ -155,35 +155,50 @@ fun HeroDetailId(heroDeckViewModel: HeroDeckViewModel, navController: NavControl
             }
 
             item {
-                Text(
-                    text = superHero.name + "\n("+superHero.biography.fullName+")",
-                    style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Blue
-                )
-            }
-
-            item {
-                Text(
-                    text = superHero.biography.publisher,
-                    style = TextStyle(fontFamily = Shrikhand, fontSize = 25.sp),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Blue
-                )
-            }
-
-            item {
                 Skills(superHero = superHero)
             }
 
+
             item {
-                Spacer(modifier = Modifier.padding(15.dp))
+                 Text(
+                     text = superHero.name + "\n("+superHero.biography.fullName+")",
+                     style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp),
+                     textAlign = TextAlign.Center,
+                     modifier = Modifier.fillMaxWidth(),
+                     color = Blue
+                 )
+            }
+
+            item {
+                var color: Color
+                if(superHero.biography.publisher=="Marvel Comics"){
+                    color = Red
+                }else{
+                    color = Blue
+                }
+                Text(
+                    text = superHero.biography.publisher,
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                    color = color
+                )
+            }
+
+            item {
+                Text(
+                    text = superHero.work.occupation,
+                    style = TextStyle(fontFamily = Shrikhand, fontSize = 20.sp),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                    color = Blue
+                )
             }
 
 
-            item {
+
+
+            /*item {
                 Text(
                     text = "ELIMINAR",
                     color = Red,
@@ -199,7 +214,7 @@ fun HeroDetailId(heroDeckViewModel: HeroDeckViewModel, navController: NavControl
                             }
                         }
                 )
-            }
+            }*/
         }
 }
 

@@ -30,6 +30,7 @@ class HeroDeckViewModel:ViewModel(){
      * @param firestore Inicializa firestore con una instancia del cliente de Firestore.
      * @param _superHero lista donde guarda el jugador sus superheroes
      * @param superHeroDeck es la variable visible que referencia a _superHero
+     * @param superHeroDeckPlayer son las cartas que tiene el jugador en la base de datos
      * @param superHeroesDC contiene superHeroes de la lista de DC -> pero en este caso contiene todos
      * @param superHeroresMarvel contiene superHeroes de la lista de Marvel
      * @param lista guarda los superheroes en una lista para después pasarlo a la final
@@ -49,7 +50,13 @@ class HeroDeckViewModel:ViewModel(){
      *     432 -> Martian manhunter, 132 -> Booster Gold, 367 -> John Constantine
      *     505 -> Oracle, 268 -> Forge, 732 -> Iron Man, 717 -> wolverine, 332 -> Hulk
      *     598 -> Silver Surfer, 456 -> Mister Fantastic, 216 -> DeathStroke
-     *     724 -> X-Man, 149 -> Captain America
+     *     724 -> X-Man, 149 -> Captain America, 156 -> Captain Marvel,
+     *     405 -> Lex Luthor, 162 -> Carnage, 416 -> Luke Cage
+     *     657 -> The Comedian, 370 -> Joker,
+     *     195 -> Cyborg Superman, 213 -> DeadPool
+     *     459 -> Mister Mxyzptlk, 705 -> Warlock,
+     *     637 -> StephenWolf, 151 -> Captain Britain,
+     *     687 -> Venom
      * */
 
     private val auth: FirebaseAuth by lazy { Firebase.auth }
@@ -58,9 +65,6 @@ class HeroDeckViewModel:ViewModel(){
     private val _superHeroesDC  = MutableStateFlow<List<SuperHero>>(emptyList())
     val superHeroDeckDC: StateFlow<List<SuperHero>> = _superHeroesDC
 
-    /*private val _superHeroesMarvel  = MutableStateFlow<List<SuperHero>>(emptyList())
-    val superHeroDeckMarvel: StateFlow<List<SuperHero>> = _superHeroesMarvel*/
-
     private val _superHeroDeckPlayer = MutableStateFlow<List<SuperHeroState>>(emptyList())
     val superHeroDeckPlayer: StateFlow<List<SuperHeroState>> =  _superHeroDeckPlayer
 
@@ -68,15 +72,15 @@ class HeroDeckViewModel:ViewModel(){
     private var actualSuperHero by mutableStateOf(SuperHero())
         private set;
 
-    private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505,
-        216)
+    /*private val listaIdDc = listOf(70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505,
+        216, 156, 405)
     private val listaIdMarvel = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
-        213, 670, 268, 732, 724, 149)
+        213, 670, 268, 732, 724, 149, 162)*/
 
 
     private val listaId = listOf(215, 201, 423, 620, 489, 10, 263, 280, 43, 309, 311, 322, 345,
         213, 670, 70, 655, 52, 298, 538, 720, 491, 165, 194, 38, 432, 132, 367, 505, 268, 732,
-        332, 598, 216, 724, 149)
+        332, 598, 216, 724, 149, 156, 405, 162, 416, 657, 705, 637, 687)
 
     val query = MutableStateFlow("")
 
@@ -121,7 +125,7 @@ class HeroDeckViewModel:ViewModel(){
      * son métodos antiguos para intentar separar las listas por lazy row
      * pero no me funcionaba
      */
-    fun getSuperHeroesDC(){
+    /*fun getSuperHeroesDC(){
         //iniciamos una corrutina
         lista.clear()
         for (i in listaIdDc.indices) {
@@ -162,7 +166,7 @@ class HeroDeckViewModel:ViewModel(){
                 }
             }
         }
-    }
+    }*/
 
 
     /**
